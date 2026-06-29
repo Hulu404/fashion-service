@@ -38,7 +38,7 @@ export default function ItemEditor({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[rgba(34,20,12,0.45)] px-4 py-6"
+      className="fixed inset-0 z-50 flex items-end sm:items-center justify-center bg-[rgba(20,28,56,0.45)] px-4 py-6"
       role="dialog"
       aria-modal="true"
       aria-label={title}

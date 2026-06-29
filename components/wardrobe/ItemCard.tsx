@@ -38,7 +38,7 @@ export default function ItemCard({ item, thumbUrl, onEdit, onDelete }: Props) {
           </div>
         )}
         {item.season && (
-          <span className="absolute top-2 left-2 text-[10px] tracking-[0.06em] px-2 py-1 rounded bg-[rgba(34,20,12,0.55)] text-porcelain">
+          <span className="absolute top-2 left-2 text-[10px] tracking-[0.06em] px-2 py-1 rounded bg-[rgba(20,28,56,0.55)] text-porcelain">
             {item.season}
           </span>
         )}

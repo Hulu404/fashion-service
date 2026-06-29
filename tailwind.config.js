@@ -4,19 +4,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        oat: '#E9E1D2',
-        porcelain: '#F6F1E7',
-        'porcelain-2': '#FBF8F1',
-        ink: '#221B16',
-        'ink-soft': '#4A4038',
-        stone: '#9C9183',
-        mocha: '#8A6A4F',
-        'mocha-soft': '#C7B49F',
-        oxblood: '#6E2A38',
-        'oxblood-deep': '#561F2B'
+        // Pink + blue palette — mirrors the CSS variables in app/globals.css.
+        oat: '#F7E1EA',
+        porcelain: '#FBEFF4',
+        'porcelain-2': '#FEF8FB',
+        ink: '#1E2A52',
+        'ink-soft': '#3C4C7E',
+        stone: '#8690B4',
+        mocha: '#4E66B0',
+        'mocha-soft': '#AEC0E8',
+        oxblood: '#C43B72',
+        'oxblood-deep': '#A12C5C'
       },
       boxShadow: {
-        eclat: '0 24px 60px -28px rgba(34,20,12,.55)'
+        eclat: '0 24px 60px -28px rgba(30,25,60,.5)'
       },
       borderRadius: {
         e: '16px',

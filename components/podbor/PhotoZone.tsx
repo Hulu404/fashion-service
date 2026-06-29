@@ -272,7 +272,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
 
   if (phase === 'saved') {
     return (
-      <div className="rounded-xl border border-oxblood bg-[rgba(110,42,56,0.05)] p-5 text-center">
+      <div className="rounded-xl border border-oxblood bg-[rgba(196,59,114,0.06)] p-5 text-center">
         <p className="text-oxblood font-medium text-sm">
           {kind === 'garment' ? 'Вещь добавлена в гардероб.' : 'Параметры сохранены в профиль.'}
         </p>

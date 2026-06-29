@@ -3,19 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --oat: #E9E1D2;
-  --porcelain: #F6F1E7;
-  --porcelain-2: #FBF8F1;
-  --ink: #221B16;
-  --ink-soft: #4A4038;
-  --stone: #9C9183;
-  --mocha: #8A6A4F;
-  --mocha-soft: #C7B49F;
-  --oxblood: #6E2A38;
-  --oxblood-deep: #561F2B;
-  --hair: rgba(34, 27, 22, 0.14);
-  --hair-soft: rgba(34, 27, 22, 0.08);
-  --shadow: 0 24px 60px -28px rgba(34, 20, 12, 0.55);
+  /* Pink + blue palette. Names are kept for continuity; values are re-themed. */
+  --oat: #F7E1EA;          /* page background — blush pink */
+  --porcelain: #FBEFF4;    /* light surface */
+  --porcelain-2: #FEF8FB;  /* lightest surface (cards) */
+  --ink: #1E2A52;          /* primary text — deep navy */
+  --ink-soft: #3C4C7E;     /* secondary text */
+  --stone: #8690B4;        /* muted text — periwinkle grey */
+  --mocha: #4E66B0;        /* medium accent / labels — blue */
+  --mocha-soft: #AEC0E8;   /* soft accent / borders — light blue */
+  --oxblood: #C43B72;      /* primary action / brand — rose pink */
+  --oxblood-deep: #A12C5C; /* primary action hover */
+  --hair: rgba(30, 42, 82, 0.14);
+  --hair-soft: rgba(30, 42, 82, 0.08);
+  --shadow: 0 24px 60px -28px rgba(30, 25, 60, 0.5);
 }
 
 @layer base {
@@ -148,7 +149,7 @@
 .drop.has {
   border-style: solid;
   border-color: var(--oxblood);
-  background: rgba(110, 42, 56, 0.05);
+  background: rgba(196, 59, 114, 0.06);
 }
 .drop .t {
   font-size: 13.5px;
