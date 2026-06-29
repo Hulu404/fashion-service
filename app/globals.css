@@ -512,6 +512,90 @@
   }
 }
 
+/* ---------- Build screen: form + live brief ----------
+   Mobile: single column, brief hidden, inline submit button stays.
+   Desktop: [form 1fr | brief 360px] grid; the grid owns the gutter, so the
+   form groups drop their own horizontal padding (no double gutters). */
+.brief {
+  display: none;
+}
+.brief-card {
+  background: var(--porcelain-2);
+  border: 1px solid var(--hair-soft);
+  border-radius: 16px;
+  padding: 22px;
+}
+.brief-card .eyebrow {
+  display: block;
+  margin-bottom: 14px;
+}
+.brief-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.brief-row {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.brief-row dt {
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--mocha);
+}
+.brief-row dd {
+  font-size: 14px;
+  color: var(--ink);
+}
+.brief-pal {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.brief-strip {
+  display: inline-flex;
+  height: 16px;
+  width: 54px;
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--hair-soft);
+}
+.brief-strip i {
+  flex: 1;
+}
+.brief-empty {
+  font-size: 13px;
+  color: var(--stone);
+  font-weight: 300;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 1024px) {
+  .build-grid {
+    display: grid;
+    grid-template-columns: 1fr 360px;
+    gap: var(--gut);
+    align-items: start;
+    padding: 0 var(--gut);
+  }
+  /* The grid supplies the gutter — drop the groups' own horizontal padding. */
+  .build-main > p,
+  .build-main > fieldset,
+  .build-main > div {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .brief {
+    display: block;
+    position: sticky;
+    top: 24px;
+  }
+}
+
 /* ---------- App shell ----------
    Mobile (<1024px) is intentionally layout-neutral: .app/.stage add no box,
    .sidebar is hidden, so phones render exactly as before. The desktop grid

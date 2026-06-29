@@ -10,6 +10,7 @@ import {
   type BuildParams,
 } from '../../lib/buildOptions'
 import PhotoZone from './PhotoZone'
+import Brief from './Brief'
 
 type Props = {
   value: BuildParams
@@ -65,7 +66,7 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
   return (
     <div className="pb-10">
       {/* Topbar */}
-      <div className="flex items-center gap-3.5 px-5 pt-6 pb-2 sticky top-0 bg-oat z-10">
+      <div className="flex items-center gap-3.5 px-5 pt-6 pb-2 sticky top-0 bg-oat z-10 lg:px-[var(--gut)]">
         <a
           href="/"
           aria-label="На витрину"
@@ -81,6 +82,8 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
         </span>
       </div>
 
+      <div className="build-grid">
+        <div className="build-main">
       <p className="px-[var(--gut)] pt-1.5 pb-1.5 text-sm text-ink-soft font-light leading-relaxed">
         Отметьте, что нужно. Чем точнее ввод, тем точнее подбор.
       </p>
@@ -158,10 +161,14 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
         <PhotoZone userId={userId} onSaved={() => onChange({ ...value, has_photo: true })} />
       </fieldset>
 
-      <div className="px-[var(--gut)] pt-8">
-        <button type="button" className="btn full" onClick={onSubmit} disabled={saving}>
-          Собрать образы
-        </button>
+          <div className="build-submit px-[var(--gut)] pt-8 lg:hidden">
+            <button type="button" className="btn full" onClick={onSubmit} disabled={saving}>
+              Собрать образы
+            </button>
+          </div>
+        </div>
+
+        <Brief value={value} onSubmit={onSubmit} saving={saving} />
       </div>
     </div>
   )
