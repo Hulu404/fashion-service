@@ -13,14 +13,14 @@ export default async function Page() {
   const hasTrends = Array.isArray(trends) && trends.length > 0
 
   return (
-    <main className="p-4 max-w-md mx-auto min-h-screen phone-shell">
+    <main className="p-4 max-w-md mx-auto min-h-screen phone-shell lg:max-w-[1000px] lg:px-[var(--gut)] lg:py-10">
       <Masthead />
       <Hero />
 
-      <section className="mt-6">
+      <section className="mt-6 lg:mt-12">
         <h3 className="text-sm text-stone font-semibold">Показы недели</h3>
         {hasTrends ? (
-          <div className="mt-3 space-y-4">
+          <div className="mt-3 grid grid-cols-1 gap-4 lg:grid-cols-3 lg:gap-5">
             {trends!.map((t: any) => (
               <TrendCard key={t.id} trend={t} />
             ))}
@@ -32,7 +32,7 @@ export default async function Page() {
         )}
       </section>
 
-      <section className="mt-8">
+      <section className="mt-8 lg:mt-10">
         <FeaturedCard />
       </section>
     </main>
