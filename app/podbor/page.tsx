@@ -6,10 +6,13 @@ import { getSupabaseBrowser } from '../../lib/supabaseClient'
 import { EMPTY_PARAMS, type BuildParams } from '../../lib/buildOptions'
 import LoginScreen from '../../components/podbor/LoginScreen'
 import BuildForm from '../../components/podbor/BuildForm'
-import ResultStub from '../../components/podbor/ResultStub'
+import Loader from '../../components/podbor/Loader'
+import ResultsScreen from '../../components/podbor/ResultsScreen'
+import { lookKey, type Look } from '../../lib/looks'
+import { fetchSavedKeys, saveLook, removeLook } from '../../lib/savedLooks'
 
 type Phase = 'checking' | 'signed-out' | 'loading-profile' | 'ready'
-type View = 'form' | 'result'
+type View = 'form' | 'loading' | 'result' | 'error'
 
 const PROFILE_COLUMNS = 'occasion, styles, palette, fit, budget, has_photo'
 
@@ -21,8 +24,14 @@ export default function PodborPage() {
   const [view, setView] = useState<View>('form')
   const [saving, setSaving] = useState(false)
 
+  const [looks, setLooks] = useState<Look[]>([])
+  const [usingSeed, setUsingSeed] = useState(false)
+  const [genError, setGenError] = useState<string | null>(null)
+  const [savedKeys, setSavedKeys] = useState<Set<string>>(new Set())
+
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
   const hydrating = useRef(false) // guards autosave while we load existing data
+  const variety = useRef(1) // bumped on each regeneration to nudge variety
 
   // --- Auth lifecycle ---
   useEffect(() => {
@@ -90,6 +99,46 @@ export default function PodborPage() {
     }
   }, [phase, session, supabase])
 
+  // --- Load saved-look keys so result cards reflect favourites on entry ---
+  useEffect(() => {
+    if (phase !== 'ready' || !session) return
+    let active = true
+    fetchSavedKeys(supabase, session.user.id).then((keys) => {
+      if (active) setSavedKeys(keys)
+    })
+    return () => {
+      active = false
+    }
+  }, [phase, session, supabase])
+
+  const toggleSave = useCallback(
+    async (look: Look) => {
+      if (!session) return
+      const key = lookKey(look)
+      const userId = session.user.id
+      const wasSaved = savedKeys.has(key)
+      // Optimistic toggle; revert on failure.
+      setSavedKeys((prev) => {
+        const next = new Set(prev)
+        if (wasSaved) next.delete(key)
+        else next.add(key)
+        return next
+      })
+      const { error } = wasSaved
+        ? await removeLook(supabase, userId, key)
+        : await saveLook(supabase, userId, look)
+      if (error) {
+        setSavedKeys((prev) => {
+          const next = new Set(prev)
+          if (wasSaved) next.add(key)
+          else next.delete(key)
+          return next
+        })
+      }
+    },
+    [session, supabase, savedKeys]
+  )
+
   const persist = useCallback(
     async (next: BuildParams) => {
       if (!session) return
@@ -113,11 +162,45 @@ export default function PodborPage() {
     }
   }, [params, phase, persist])
 
+  const generate = useCallback(async () => {
+    if (!session) return
+    setView('loading')
+    setGenError(null)
+    try {
+      const res = await fetch('/api/looks', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({ occasion: params.occasion, variety: variety.current }),
+      })
+      const data = await res.json()
+      if (!res.ok || !Array.isArray(data?.looks) || data.looks.length === 0) {
+        setGenError(data?.error || 'Не удалось собрать образы. Попробуйте ещё раз.')
+        setView('error')
+        return
+      }
+      setLooks(data.looks as Look[])
+      setUsingSeed(Boolean(data.usingSeed))
+      setView('result')
+    } catch {
+      setGenError('Сбой при генерации. Проверьте подключение.')
+      setView('error')
+    }
+  }, [session, params.occasion])
+
   const handleSubmit = useCallback(async () => {
     if (saveTimer.current) clearTimeout(saveTimer.current)
-    await persist(params) // ensure the latest selection is stored before navigating
-    setView('result')
-  }, [params, persist])
+    await persist(params) // ensure the latest selection is stored before generating
+    variety.current = 1
+    await generate()
+  }, [params, persist, generate])
+
+  const regenerate = useCallback(async () => {
+    variety.current += 1
+    await generate()
+  }, [generate])
 
   async function signOut() {
     await supabase.auth.signOut()
@@ -135,6 +218,10 @@ export default function PodborPage() {
     return <LoginScreen />
   }
 
+  if (view === 'loading') {
+    return <Loader />
+  }
+
   return (
     <main className="max-w-md mx-auto min-h-screen bg-oat">
       {view === 'form' ? (
@@ -145,10 +232,51 @@ export default function PodborPage() {
           userId={session.user.id}
           saving={saving}
         />
+      ) : view === 'result' ? (
+        <ResultsScreen
+          looks={looks}
+          params={params}
+          usingSeed={usingSeed}
+          savedKeys={savedKeys}
+          onToggleSave={toggleSave}
+          onBack={() => setView('form')}
+          onRegen={regenerate}
+        />
       ) : (
-        <ResultStub params={params} onBack={() => setView('form')} />
+        <div className="pb-12">
+          <div className="flex items-center gap-3.5 px-5 pt-6 pb-2">
+            <button
+              type="button"
+              onClick={() => setView('form')}
+              aria-label="Назад к параметрам"
+              className="w-9 h-9 rounded-full border border-[color:var(--hair)] bg-porcelain-2 grid place-items-center text-ink hover:bg-porcelain"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
+                <path d="M15 5l-7 7 7 7" />
+              </svg>
+            </button>
+            <h1 className="font-display text-2xl text-ink">Ваши образы</h1>
+          </div>
+          <div className="mx-[22px] mt-4 rounded-2xl border border-[color:var(--hair-soft)] bg-porcelain-2 p-8 text-center">
+            <p className="text-sm text-oxblood font-light">{genError}</p>
+            <button type="button" className="btn mt-5" onClick={regenerate}>
+              Попробовать снова
+            </button>
+          </div>
+        </div>
       )}
       <div className="px-[22px] pb-10 pt-2 flex items-center gap-5">
+        <a
+          href="/favorites"
+          className="text-[11px] text-mocha tracking-[0.08em] uppercase hover:text-oxblood inline-flex items-center gap-1.5"
+        >
+          Избранное
+          {savedKeys.size > 0 && (
+            <span className="inline-grid place-items-center min-w-[16px] h-4 px-1 rounded-full bg-oxblood text-porcelain text-[10px] leading-none">
+              {savedKeys.size}
+            </span>
+          )}
+        </a>
         <a
           href="/wardrobe"
           className="text-[11px] text-mocha tracking-[0.08em] uppercase hover:text-oxblood"

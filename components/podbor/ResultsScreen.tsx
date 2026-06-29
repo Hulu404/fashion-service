@@ -1,10 +1,19 @@
 'use client'
 
 import type { BuildParams } from '../../lib/buildOptions'
+import { lookKey, type Look } from '../../lib/looks'
+import LookGlyphs from './LookGlyphs'
+import LookCard from './LookCard'
 
 type Props = {
+  looks: Look[]
   params: BuildParams
+  usingSeed?: boolean
+  /** Content keys of looks the user has saved (source of truth: saved_looks). */
+  savedKeys: Set<string>
+  onToggleSave: (look: Look) => void
   onBack: () => void
+  onRegen: () => void
 }
 
 function summaryTags(p: BuildParams): string[] {
@@ -13,17 +22,27 @@ function summaryTags(p: BuildParams): string[] {
   p.styles.forEach((s) => tags.push(s))
   if (p.palette) tags.push(`${p.palette} палитра`)
   if (p.fit) tags.push(`${p.fit} силуэт`)
-  if (p.budget) tags.push(p.budget)
   if (p.has_photo) tags.push('по фото')
   if (tags.length === 0) tags.push('Универсальный подбор')
   return tags
 }
 
-export default function ResultStub({ params, onBack }: Props) {
+export default function ResultsScreen({
+  looks,
+  params,
+  usingSeed,
+  savedKeys,
+  onToggleSave,
+  onBack,
+  onRegen,
+}: Props) {
   const tags = summaryTags(params)
 
   return (
     <div className="pb-12">
+      <LookGlyphs />
+
+      {/* Topbar */}
       <div className="flex items-center gap-3.5 px-5 pt-6 pb-2 sticky top-0 bg-oat z-10">
         <button
           type="button"
@@ -38,7 +57,8 @@ export default function ResultStub({ params, onBack }: Props) {
         <h1 className="font-display text-2xl text-ink">Ваши образы</h1>
       </div>
 
-      <div className="flex gap-2 flex-wrap px-[22px] pt-1 pb-2">
+      {/* Summary chips */}
+      <div className="summary">
         {tags.map((t, i) => (
           <span key={`${t}-${i}`} className={`tag${i === 0 ? '' : ' ghost'}`}>
             {t}
@@ -46,20 +66,29 @@ export default function ResultStub({ params, onBack }: Props) {
         ))}
       </div>
 
-      <div className="mx-[22px] mt-4 rounded-2xl border border-[color:var(--hair-soft)] bg-porcelain-2 p-8 text-center">
-        <div className="text-mocha flex justify-center mb-4" aria-hidden="true">
-          <svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3">
-            <path d="M5 3v4M3 5h4M6 17v3M5 18h3" />
-            <path d="M14 4l2.5 5.5L22 12l-5.5 2.5L14 20l-2.5-5.5L6 12l5.5-2.5z" />
-          </svg>
-        </div>
-        <h2 className="font-display text-xl text-ink">Параметры сохранены</h2>
-        <p className="mt-3 text-sm text-ink-soft font-light leading-relaxed max-w-[30ch] mx-auto">
-          Движок подбора образов появится в следующем шаге. Ваш выбор уже записан в профиль и
-          подтянется при возвращении.
+      {usingSeed && (
+        <p className="px-[22px] pt-1 pb-1 text-xs text-stone font-light">
+          Гардероб пуст — образы собраны из базовых вещей. Добавьте свои фото, чтобы подбор стал точнее.
         </p>
-        <button type="button" className="btn mt-6" onClick={onBack}>
-          Изменить параметры
+      )}
+
+      {/* Look cards */}
+      <div className="pt-2">
+        {looks.map((look, i) => (
+          <LookCard
+            key={i}
+            look={look}
+            index={i + 1}
+            saved={savedKeys.has(lookKey(look))}
+            onToggleSave={() => onToggleSave(look)}
+            onSimilar={onRegen}
+          />
+        ))}
+      </div>
+
+      <div className="more-wrap">
+        <button type="button" className="btn full" style={{ background: 'var(--ink)' }} onClick={onRegen}>
+          Собрать ещё
         </button>
       </div>
     </div>
