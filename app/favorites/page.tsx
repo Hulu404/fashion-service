@@ -45,7 +45,7 @@ export default function FavoritesPage() {
   }
 
   return (
-    <main className="max-w-md mx-auto min-h-screen bg-oat phone-shell">
+    <main className="max-w-md mx-auto min-h-screen bg-oat phone-shell lg:max-w-[1040px]">
       <FavoritesScreen userId={session.user.id} />
     </main>
   )

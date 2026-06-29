@@ -57,7 +57,7 @@ export default function FavoritesScreen({ userId }: Props) {
       {loading ? (
         <p className="px-[var(--gut)] eyebrow">Загрузка…</p>
       ) : items.length === 0 ? (
-        <div className="px-10 py-20 text-center">
+        <div className="px-10 py-20 text-center lg:max-w-sm lg:mx-auto">
           <div className="text-mocha-soft flex justify-center mb-4" aria-hidden="true">
             <svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.3">
               <path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" />
@@ -72,7 +72,7 @@ export default function FavoritesScreen({ userId }: Props) {
           </a>
         </div>
       ) : (
-        <div className="pt-1">
+        <div className="pt-1 lg:grid lg:grid-cols-3 lg:gap-5 lg:items-start lg:px-[var(--gut)]">
           {items.map((row, i) => (
             <LookCard
               key={row.look_key}
