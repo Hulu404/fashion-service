@@ -410,9 +410,22 @@
   padding: 6px 22px 8px;
 }
 
+/* Desktop: keep the app a centered phone-width column with a soft frame. */
+@media (min-width: 768px) {
+  .phone-shell {
+    box-shadow: var(--shadow);
+    border-left: 1px solid var(--hair-soft);
+    border-right: 1px solid var(--hair-soft);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }

@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { COLOR_NAMES, hexForColor } from '../../lib/colors'
 import {
   CATEGORIES,
@@ -32,6 +32,15 @@ export default function ItemEditor({
   onSave,
 }: Props) {
   const [draft, setDraft] = useState<WardrobeDraft>(initial ?? EMPTY_DRAFT)
+
+  // Esc closes the modal for keyboard users.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onCancel()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [onCancel])
 
   const pickColor = (name: string) =>
     setDraft({ ...draft, color_name: name, color_hex: hexForColor(name) ?? '' })

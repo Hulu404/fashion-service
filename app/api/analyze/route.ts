@@ -8,6 +8,7 @@ import { parseAnalyzeResult } from '../../../lib/analyze'
 export const runtime = 'nodejs'
 
 const BUCKET = 'wardrobe'
+const MAX_BYTES = 8 * 1024 * 1024 // 8 MB — mirrors the client-side guard
 const SUPPORTED_MEDIA = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'] as const
 type MediaType = (typeof SUPPORTED_MEDIA)[number]
 
@@ -99,6 +100,14 @@ export async function POST(req: NextRequest) {
   const { data: blob, error: dlErr } = await supabase.storage.from(BUCKET).download(path)
   if (dlErr || !blob) {
     return NextResponse.json({ error: 'Файл не найден.' }, { status: 404 })
+  }
+
+  // Server-side size guard — don't trust the client's check.
+  if (blob.size > MAX_BYTES) {
+    return NextResponse.json(
+      { error: 'Файл слишком большой — загрузите изображение до 8 МБ.' },
+      { status: 413 }
+    )
   }
 
   let mediaType: MediaType | null =

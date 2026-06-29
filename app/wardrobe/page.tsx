@@ -45,7 +45,7 @@ export default function WardrobePage() {
   }
 
   return (
-    <main className="max-w-md mx-auto min-h-screen bg-oat">
+    <main className="max-w-md mx-auto min-h-screen bg-oat phone-shell">
       <WardrobeScreen userId={session.user.id} />
     </main>
   )

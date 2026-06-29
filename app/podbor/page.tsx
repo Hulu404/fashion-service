@@ -223,7 +223,7 @@ export default function PodborPage() {
   }
 
   return (
-    <main className="max-w-md mx-auto min-h-screen bg-oat">
+    <main className="max-w-md mx-auto min-h-screen bg-oat phone-shell">
       {view === 'form' ? (
         <BuildForm
           value={params}

@@ -29,9 +29,9 @@ export default function Loader() {
   }, [index])
 
   return (
-    <main className="max-w-md mx-auto min-h-screen bg-oat flex items-center justify-center px-8 pb-24">
-      <div className="loader">
-        <div className="ring" />
+    <main className="max-w-md mx-auto min-h-screen bg-oat flex items-center justify-center px-8 pb-24 phone-shell">
+      <div className="loader" role="status" aria-live="polite" aria-label="Собираем образы">
+        <div className="ring" aria-hidden="true" />
         <div className="lw" style={{ opacity: visible ? 1 : 0 }}>
           {WORDS[index]}
         </div>
