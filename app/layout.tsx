@@ -1,6 +1,7 @@
 import './globals.css'
 import { Jost, Bodoni_Moda } from 'next/font/google'
 import Navigation from '../components/Navigation'
+import ChatLauncher from '../components/chat/ChatLauncher'
 
 const jost = Jost({ subsets: ['latin'], weight: ['300','400','600','700'], variable: '--font-jost' })
 const bodoni = Bodoni_Moda({ subsets: ['latin'], weight: ['400','600','700'], variable: '--font-bodoni' })
@@ -18,6 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <div className="app">
           <Navigation />
           <div className="stage">{children}</div>
+          <ChatLauncher />
         </div>
       </body>
     </html>
