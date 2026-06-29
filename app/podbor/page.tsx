@@ -138,7 +138,13 @@ export default function PodborPage() {
   return (
     <main className="max-w-md mx-auto min-h-screen bg-oat">
       {view === 'form' ? (
-        <BuildForm value={params} onChange={setParams} onSubmit={handleSubmit} saving={saving} />
+        <BuildForm
+          value={params}
+          onChange={setParams}
+          onSubmit={handleSubmit}
+          userId={session.user.id}
+          saving={saving}
+        />
       ) : (
         <ResultStub params={params} onBack={() => setView('form')} />
       )}

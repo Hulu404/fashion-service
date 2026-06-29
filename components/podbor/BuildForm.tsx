@@ -9,11 +9,13 @@ import {
   BUDGETS,
   type BuildParams,
 } from '../../lib/buildOptions'
+import PhotoZone from './PhotoZone'
 
 type Props = {
   value: BuildParams
   onChange: (next: BuildParams) => void
   onSubmit: () => void
+  userId: string
   saving?: boolean
 }
 
@@ -34,7 +36,7 @@ function Chip({
   )
 }
 
-export default function BuildForm({ value, onChange, onSubmit, saving }: Props) {
+export default function BuildForm({ value, onChange, onSubmit, userId, saving }: Props) {
   const setOccasion = (occasion: string) =>
     onChange({ ...value, occasion: value.occasion === occasion ? null : occasion })
 
@@ -59,8 +61,6 @@ export default function BuildForm({ value, onChange, onSubmit, saving }: Props) 
 
   const setBudget = (budget: string) =>
     onChange({ ...value, budget: value.budget === budget ? null : budget })
-
-  const togglePhoto = () => onChange({ ...value, has_photo: !value.has_photo })
 
   return (
     <div className="pb-10">
@@ -150,33 +150,12 @@ export default function BuildForm({ value, onChange, onSubmit, saving }: Props) 
         </div>
       </fieldset>
 
-      {/* Зона фото — заглушка */}
+      {/* Зона фото — реальная загрузка + разбор через Claude */}
       <fieldset className="px-[22px] pt-6">
         <legend className="field-label">
           Фото <span className="hint">— необязательно</span>
         </legend>
-        <button
-          type="button"
-          className={`drop${value.has_photo ? ' has' : ''}`}
-          aria-pressed={value.has_photo}
-          onClick={togglePhoto}
-        >
-          <div className="text-mocha mb-2 flex justify-center">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4">
-              <path d="M4 16l4-5 3 3 4-5 5 7" />
-              <rect x="3" y="4" width="18" height="16" rx="2" />
-              <circle cx="9" cy="9" r="1.4" />
-            </svg>
-          </div>
-          <div className="t">
-            {value.has_photo ? 'Фото добавлено · образ_01.jpg' : 'Добавить фото себя или вещи'}
-          </div>
-          <div className="s">
-            {value.has_photo
-              ? 'Нажмите, чтобы убрать'
-              : 'Загрузка появится в следующем шаге'}
-          </div>
-        </button>
+        <PhotoZone userId={userId} onSaved={() => onChange({ ...value, has_photo: true })} />
       </fieldset>
 
       <div className="px-[22px] pt-8">
