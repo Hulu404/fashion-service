@@ -423,9 +423,162 @@
    only switches on at >=1024px. */
 .stage {
   position: relative; /* positioning context; no offset, so layout is unchanged */
+  padding-bottom: 64px; /* clearance for the fixed mobile tab bar */
 }
 .sidebar {
   display: none; /* revealed as the left column on desktop */
+}
+
+/* ---------- Mobile tab bar ---------- */
+.tabbar {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 30;
+  width: 100%;
+  max-width: 28rem; /* matches the max-w-md content column */
+  display: flex;
+  background: var(--porcelain);
+  border-top: 1px solid var(--hair);
+  padding: 8px 8px max(8px, env(safe-area-inset-bottom));
+}
+.tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 9px 0;
+  color: var(--stone);
+  font-family: var(--font-jost), sans-serif;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.tab.on {
+  color: var(--oxblood);
+}
+.tab-ico {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.tab-ico svg {
+  width: 21px;
+  height: 21px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+/* Shared favourites badge — used in BOTH the tab bar and the sidebar. */
+.nav-badge {
+  display: inline-grid;
+  place-items: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--oxblood);
+  color: var(--porcelain);
+  font-size: 10px;
+  line-height: 1;
+  font-weight: 500;
+}
+.tab-badge {
+  position: absolute;
+  top: -5px;
+  right: -11px;
+}
+
+/* ---------- Desktop sidebar contents ---------- */
+.side-brand {
+  margin-bottom: 26px;
+}
+.side-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.side-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 8px;
+  color: var(--ink-soft);
+  font-size: 14px;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.side-item:hover {
+  background: var(--porcelain);
+}
+.side-item.on {
+  color: var(--oxblood);
+  background: rgba(196, 59, 114, 0.08);
+  font-weight: 500;
+}
+.side-item .nav-badge {
+  margin-left: auto;
+}
+.side-ico {
+  width: 22px;
+  height: 22px;
+  display: grid;
+  place-items: center;
+  color: currentColor;
+}
+.side-ico svg {
+  width: 21px;
+  height: 21px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.5;
+}
+.side-item-sub {
+  display: block;
+  padding: 9px 12px 9px 46px;
+  color: var(--stone);
+  font-size: 13px;
+  border-radius: 8px;
+  transition: color 0.18s ease;
+}
+.side-item-sub:hover {
+  color: var(--oxblood);
+}
+.side-foot {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.side-user {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 14px;
+  border-top: 1px solid var(--hair-soft);
+}
+.side-user-email {
+  font-size: 12px;
+  color: var(--ink-soft);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.side-user-out {
+  flex-shrink: 0;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--stone);
+  transition: color 0.18s ease;
+}
+.side-user-out:hover {
+  color: var(--oxblood);
 }
 
 /* Tablet/desktop down from 1024: keep the centered phone column with a soft frame. */
@@ -447,11 +600,16 @@
     background: var(--oat);
   }
   .sidebar {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding: 34px 26px 26px;
     border-right: 1px solid var(--hair-soft);
+    overflow-y: auto;
   }
   .stage {
     height: 100vh;
+    padding-bottom: 0; /* no mobile tab bar to clear */
     overflow-x: hidden;
     overflow-y: auto; /* right column scrolls; no horizontal scroll */
   }

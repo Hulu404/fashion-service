@@ -160,7 +160,7 @@ export default function WardrobeScreen({ userId }: Props) {
         <a
           href="/podbor"
           aria-label="Назад"
-          className="w-9 h-9 rounded-full border border-[color:var(--hair)] bg-porcelain-2 grid place-items-center text-ink hover:bg-porcelain"
+          className="w-9 h-9 rounded-full border border-[color:var(--hair)] bg-porcelain-2 grid place-items-center text-ink hover:bg-porcelain lg:hidden"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="M15 5l-7 7 7 7" />

@@ -265,18 +265,8 @@ export default function PodborPage() {
           </div>
         </div>
       )}
-      <div className="px-[var(--gut)] pb-10 pt-2 flex items-center gap-5">
-        <a
-          href="/favorites"
-          className="text-[11px] text-mocha tracking-[0.08em] uppercase hover:text-oxblood inline-flex items-center gap-1.5"
-        >
-          Избранное
-          {savedKeys.size > 0 && (
-            <span className="inline-grid place-items-center min-w-[16px] h-4 px-1 rounded-full bg-oxblood text-porcelain text-[10px] leading-none">
-              {savedKeys.size}
-            </span>
-          )}
-        </a>
+      {/* Secondary links — on desktop the sidebar carries navigation + sign-out. */}
+      <div className="px-[var(--gut)] pb-10 pt-2 flex items-center gap-5 lg:hidden">
         <a
           href="/wardrobe"
           className="text-[11px] text-mocha tracking-[0.08em] uppercase hover:text-oxblood"
