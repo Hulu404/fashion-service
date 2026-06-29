@@ -13,7 +13,7 @@ export default async function Page() {
   const hasTrends = Array.isArray(trends) && trends.length > 0
 
   return (
-    <main className="p-4 max-w-md mx-auto min-h-screen phone-shell lg:max-w-[1000px] lg:px-[var(--gut)] lg:py-10">
+    <main className="p-4 max-w-md mx-auto min-h-screen phone-shell lg:max-w-[1320px] lg:px-[var(--gut)] lg:py-10">
       <Masthead />
       <Hero />
 

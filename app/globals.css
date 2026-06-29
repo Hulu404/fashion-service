@@ -22,7 +22,10 @@
 
 @media (min-width: 1024px) {
   :root {
-    --gut: 48px;
+    /* Fluid gutter: grows with the viewport so the layout fills the device
+       instead of sitting in a fixed 1280px column. Clamped so it never
+       collapses on a 1024px laptop nor sprawls on an ultra-wide monitor. */
+    --gut: clamp(40px, 4vw, 96px);
   }
 }
 
@@ -798,7 +801,11 @@ body {
   .app {
     display: grid;
     grid-template-columns: 256px 1fr;
-    max-width: 1280px;
+    /* Fluid shell: fills the device width up to a readable ceiling. Standard
+       laptops (1366–1536) fill completely; only ultra-wide screens keep
+       blended oat margins so line lengths stay comfortable. */
+    width: 100%;
+    max-width: 1760px;
     margin: 0 auto;
     min-height: 100vh;
     background: var(--oat);
@@ -832,7 +839,7 @@ body {
    Mobile: bottom sheet. Desktop: centred dialog (story) or right dock (chat).
    The backdrop sits below the z-raised sidebar so the sidebar stays visible. */
 .trend-trigger {
-  display: block;
+  display: flex;
   width: 100%;
   text-align: left;
   background: none;
