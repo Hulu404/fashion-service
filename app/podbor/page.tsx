@@ -148,7 +148,13 @@ export default function PodborPage() {
       ) : (
         <ResultStub params={params} onBack={() => setView('form')} />
       )}
-      <div className="px-[22px] pb-10 pt-2">
+      <div className="px-[22px] pb-10 pt-2 flex items-center gap-5">
+        <a
+          href="/wardrobe"
+          className="text-[11px] text-mocha tracking-[0.08em] uppercase hover:text-oxblood"
+        >
+          Мой гардероб
+        </a>
         <button
           type="button"
           onClick={signOut}
