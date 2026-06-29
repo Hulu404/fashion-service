@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, type ReactNode } from 'react'
+import { useEffect, useRef, type ReactNode } from 'react'
 
 type Props = {
   open: boolean
@@ -21,13 +21,47 @@ type Props = {
  * The backdrop sits below the (z-raised) sidebar so the sidebar stays visible.
  */
 export default function Overlay({ open, onClose, variant, eyebrow, title, children, ariaLabel }: Props) {
+  const sheetRef = useRef<HTMLDivElement>(null)
+  const prevFocus = useRef<HTMLElement | null>(null)
+
+  // Move focus into the dialog on open, trap Tab inside, restore focus on close.
   useEffect(() => {
     if (!open) return
+    prevFocus.current = document.activeElement as HTMLElement | null
+
+    const focusables = () =>
+      Array.from(
+        sheetRef.current?.querySelectorAll<HTMLElement>(
+          'button, [href], input, textarea, select, [tabindex]:not([tabindex="-1"])'
+        ) ?? []
+      ).filter((el) => !el.hasAttribute('disabled') && el.offsetParent !== null)
+
+    const items = focusables()
+    ;(items[0] ?? sheetRef.current)?.focus()
+
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') {
+        onClose()
+        return
+      }
+      if (e.key !== 'Tab') return
+      const f = focusables()
+      if (f.length === 0) return
+      const first = f[0]
+      const last = f[f.length - 1]
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault()
+        last.focus()
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault()
+        first.focus()
+      }
     }
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('keydown', onKey)
+      prevFocus.current?.focus?.()
+    }
   }, [open, onClose])
 
   if (!open) return null
@@ -35,6 +69,8 @@ export default function Overlay({ open, onClose, variant, eyebrow, title, childr
   return (
     <div className={`overlay overlay--${variant}`} onClick={onClose}>
       <div
+        ref={sheetRef}
+        tabIndex={-1}
         className={`sheet sheet--${variant}`}
         role="dialog"
         aria-modal="true"

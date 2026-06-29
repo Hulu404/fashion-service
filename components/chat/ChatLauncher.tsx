@@ -87,7 +87,7 @@ export default function ChatLauncher() {
         title="Анна, ваш стилист"
         ariaLabel="Чат со стилистом"
       >
-        <div className="chat-body" ref={bodyRef}>
+        <div className="chat-body" ref={bodyRef} aria-live="polite">
           {messages.map((m, i) => (
             <div key={i} className={`bub ${m.role === 'user' ? 'me' : 'ai'}`}>
               {m.role === 'assistant' && <span className="who">Стилист</span>}
