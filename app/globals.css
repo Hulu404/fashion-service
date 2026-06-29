@@ -784,6 +784,11 @@
 }
 
 @media (min-width: 1024px) {
+  /* Blend the backdrop with the centred app so the margins beside the
+     max-width:1280px shell don't read as white bars on wide laptops. */
+  body {
+    background: var(--oat);
+  }
   .app {
     display: grid;
     grid-template-columns: 256px 1fr;
