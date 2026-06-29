@@ -6,7 +6,9 @@ import { createClient } from '../lib/supabaseServer'
 
 export default async function Page() {
   const supabase = createClient()
-  const { data: trends } = await supabase.from('trends').select('*').order('number', { ascending: true }).limit(6)
+  const { data: trends } = supabase
+    ? await supabase.from('trends').select('*').order('number', { ascending: true }).limit(6)
+    : { data: null }
 
   return (
     <main className="p-4 max-w-md mx-auto">
