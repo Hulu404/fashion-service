@@ -67,7 +67,7 @@ export default function ResultsScreen({
       </div>
 
       {usingSeed && (
-        <p className="px-[22px] pt-1 pb-1 text-xs text-stone font-light">
+        <p className="px-[var(--gut)] pt-1 pb-1 text-xs text-stone font-light">
           Гардероб пуст — образы собраны из базовых вещей. Добавьте свои фото, чтобы подбор стал точнее.
         </p>
       )}

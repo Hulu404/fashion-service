@@ -17,6 +17,13 @@
   --hair: rgba(30, 42, 82, 0.14);
   --hair-soft: rgba(30, 42, 82, 0.08);
   --shadow: 0 24px 60px -28px rgba(30, 25, 60, 0.5);
+  --gut: 22px; /* horizontal gutter — widens on desktop (see @media below) */
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --gut: 48px;
+  }
 }
 
 @layer base {
@@ -265,11 +272,11 @@
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  padding: 4px 22px 6px;
+  padding: 4px var(--gut) 6px;
 }
 
 .look {
-  margin: 0 22px 20px;
+  margin: 0 var(--gut) 20px;
   background: var(--porcelain-2);
   border-radius: 16px;
   overflow: hidden;
@@ -407,15 +414,55 @@
 }
 
 .more-wrap {
-  padding: 6px 22px 8px;
+  padding: 6px var(--gut) 8px;
 }
 
-/* Desktop: keep the app a centered phone-width column with a soft frame. */
+/* ---------- App shell ----------
+   Mobile (<1024px) is intentionally layout-neutral: .app/.stage add no box,
+   .sidebar is hidden, so phones render exactly as before. The desktop grid
+   only switches on at >=1024px. */
+.stage {
+  position: relative; /* positioning context; no offset, so layout is unchanged */
+}
+.sidebar {
+  display: none; /* revealed as the left column on desktop */
+}
+
+/* Tablet/desktop down from 1024: keep the centered phone column with a soft frame. */
 @media (min-width: 768px) {
   .phone-shell {
     box-shadow: var(--shadow);
     border-left: 1px solid var(--hair-soft);
     border-right: 1px solid var(--hair-soft);
+  }
+}
+
+@media (min-width: 1024px) {
+  .app {
+    display: grid;
+    grid-template-columns: 256px 1fr;
+    max-width: 1280px;
+    margin: 0 auto;
+    min-height: 100vh;
+    background: var(--oat);
+  }
+  .sidebar {
+    display: block;
+    border-right: 1px solid var(--hair-soft);
+  }
+  .stage {
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto; /* right column scrolls; no horizontal scroll */
+  }
+  .tabbar {
+    display: none;
+  }
+  /* The grid is the shell now — drop the phone frame. */
+  .phone-shell {
+    box-shadow: none;
+    border-left: 0;
+    border-right: 0;
   }
 }
 

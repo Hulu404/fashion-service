@@ -257,7 +257,7 @@ export default function PodborPage() {
             </button>
             <h1 className="font-display text-2xl text-ink">Ваши образы</h1>
           </div>
-          <div className="mx-[22px] mt-4 rounded-2xl border border-[color:var(--hair-soft)] bg-porcelain-2 p-8 text-center">
+          <div className="mx-[var(--gut)] mt-4 rounded-2xl border border-[color:var(--hair-soft)] bg-porcelain-2 p-8 text-center">
             <p className="text-sm text-oxblood font-light">{genError}</p>
             <button type="button" className="btn mt-5" onClick={regenerate}>
               Попробовать снова
@@ -265,7 +265,7 @@ export default function PodborPage() {
           </div>
         </div>
       )}
-      <div className="px-[22px] pb-10 pt-2 flex items-center gap-5">
+      <div className="px-[var(--gut)] pb-10 pt-2 flex items-center gap-5">
         <a
           href="/favorites"
           className="text-[11px] text-mocha tracking-[0.08em] uppercase hover:text-oxblood inline-flex items-center gap-1.5"

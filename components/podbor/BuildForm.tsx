@@ -81,12 +81,12 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
         </span>
       </div>
 
-      <p className="px-[22px] pt-1.5 pb-1.5 text-sm text-ink-soft font-light leading-relaxed">
+      <p className="px-[var(--gut)] pt-1.5 pb-1.5 text-sm text-ink-soft font-light leading-relaxed">
         Отметьте, что нужно. Чем точнее ввод, тем точнее подбор.
       </p>
 
       {/* Повод — single-select */}
-      <fieldset className="px-[22px] pt-5">
+      <fieldset className="px-[var(--gut)] pt-5">
         <legend className="field-label">Повод</legend>
         <div className="chips">
           {OCCASIONS.map((o) => (
@@ -96,7 +96,7 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
       </fieldset>
 
       {/* Стиль — multi-select, max 2 */}
-      <fieldset className="px-[22px] pt-6">
+      <fieldset className="px-[var(--gut)] pt-6">
         <legend className="field-label">
           Стиль <span className="hint">— до двух</span>
         </legend>
@@ -108,7 +108,7 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
       </fieldset>
 
       {/* Палитра — card strips */}
-      <fieldset className="px-[22px] pt-6">
+      <fieldset className="px-[var(--gut)] pt-6">
         <legend className="field-label">Палитра</legend>
         <div className="pal-grid">
           {PALETTES.map((p) => (
@@ -131,7 +131,7 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
       </fieldset>
 
       {/* Посадка — single-select */}
-      <fieldset className="px-[22px] pt-6">
+      <fieldset className="px-[var(--gut)] pt-6">
         <legend className="field-label">Посадка</legend>
         <div className="chips">
           {FITS.map((f) => (
@@ -141,7 +141,7 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
       </fieldset>
 
       {/* Бюджет — single-select */}
-      <fieldset className="px-[22px] pt-6">
+      <fieldset className="px-[var(--gut)] pt-6">
         <legend className="field-label">Бюджет на образ</legend>
         <div className="chips">
           {BUDGETS.map((b) => (
@@ -151,14 +151,14 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
       </fieldset>
 
       {/* Зона фото — реальная загрузка + разбор через Claude */}
-      <fieldset className="px-[22px] pt-6">
+      <fieldset className="px-[var(--gut)] pt-6">
         <legend className="field-label">
           Фото <span className="hint">— необязательно</span>
         </legend>
         <PhotoZone userId={userId} onSaved={() => onChange({ ...value, has_photo: true })} />
       </fieldset>
 
-      <div className="px-[22px] pt-8">
+      <div className="px-[var(--gut)] pt-8">
         <button type="button" className="btn full" onClick={onSubmit} disabled={saving}>
           Собрать образы
         </button>

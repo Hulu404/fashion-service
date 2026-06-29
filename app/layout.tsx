@@ -12,7 +12,13 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
-      <body className={`${jost.variable} ${bodoni.variable} bg-porcelain-2 text-ink`}>{children}</body>
+      <body className={`${jost.variable} ${bodoni.variable} bg-porcelain-2 text-ink`}>
+        {/* App shell: empty .sidebar + .stage. No-op on mobile; grid on >=1024px. */}
+        <div className="app">
+          <aside className="sidebar" aria-hidden="true" />
+          <div className="stage">{children}</div>
+        </div>
+      </body>
     </html>
   )
 }

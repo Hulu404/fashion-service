@@ -36,7 +36,7 @@ export default function FavoritesScreen({ userId }: Props) {
       <LookGlyphs />
 
       {/* Masthead with count badge */}
-      <header className="flex items-center gap-3 px-[22px] pt-7 pb-3">
+      <header className="flex items-center gap-3 px-[var(--gut)] pt-7 pb-3">
         <a
           href="/podbor"
           aria-label="Назад"
@@ -55,7 +55,7 @@ export default function FavoritesScreen({ userId }: Props) {
       </header>
 
       {loading ? (
-        <p className="px-[22px] eyebrow">Загрузка…</p>
+        <p className="px-[var(--gut)] eyebrow">Загрузка…</p>
       ) : items.length === 0 ? (
         <div className="px-10 py-20 text-center">
           <div className="text-mocha-soft flex justify-center mb-4" aria-hidden="true">

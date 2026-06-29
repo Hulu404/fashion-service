@@ -181,7 +181,7 @@ export default function WardrobeScreen({ userId }: Props) {
 
       {/* Filters — only shown once there is something to filter */}
       {!loading && items.length > 0 && (
-        <div className="px-[22px] pt-3 space-y-3">
+        <div className="px-[var(--gut)] pt-3 space-y-3">
           {usedCategories.length > 0 && (
             <div className="chips">
               <button
@@ -224,7 +224,7 @@ export default function WardrobeScreen({ userId }: Props) {
       )}
 
       {/* Body */}
-      <div className="px-[22px] pt-5">
+      <div className="px-[var(--gut)] pt-5">
         {loading ? (
           <p className="eyebrow">Загрузка…</p>
         ) : loadError ? (
