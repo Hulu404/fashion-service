@@ -417,6 +417,20 @@
   padding: 6px var(--gut) 8px;
 }
 
+/* Desktop results: 3-up grid (gap owns spacing) and a centred, hugged button. */
+@media (min-width: 1024px) {
+  .look {
+    margin: 0; /* grid gap replaces the per-card gutter */
+  }
+  .more-wrap {
+    display: flex;
+    justify-content: center;
+  }
+  .more-wrap .btn.full {
+    width: auto;
+  }
+}
+
 /* ---------- Home hero ----------
    Mobile: stacked — colour art on top (order:-1), copy below.
    Desktop: two columns — copy left, art right (taller). */

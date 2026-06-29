@@ -225,7 +225,7 @@ export default function PodborPage() {
   return (
     <main
       className={`max-w-md mx-auto min-h-screen bg-oat phone-shell ${
-        view === 'form' ? 'lg:max-w-[1040px]' : 'lg:max-w-md'
+        view === 'error' ? 'lg:max-w-md' : 'lg:max-w-[1040px]'
       }`}
     >
       {view === 'form' ? (

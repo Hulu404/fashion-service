@@ -43,7 +43,7 @@ export default function ResultsScreen({
       <LookGlyphs />
 
       {/* Topbar */}
-      <div className="flex items-center gap-3.5 px-5 pt-6 pb-2 sticky top-0 bg-oat z-10">
+      <div className="flex items-center gap-3.5 px-5 pt-6 pb-2 sticky top-0 bg-oat z-10 lg:px-[var(--gut)]">
         <button
           type="button"
           onClick={onBack}
@@ -72,8 +72,8 @@ export default function ResultsScreen({
         </p>
       )}
 
-      {/* Look cards */}
-      <div className="pt-2">
+      {/* Look cards — vertical list on mobile, 3-up grid on desktop */}
+      <div className="pt-2 lg:grid lg:grid-cols-3 lg:gap-5 lg:items-start lg:px-[var(--gut)]">
         {looks.map((look, i) => (
           <LookCard
             key={i}
