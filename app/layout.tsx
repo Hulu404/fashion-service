@@ -14,7 +14,7 @@ export const metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="ru">
-      <body className={`${jost.variable} ${bodoni.variable} bg-porcelain-2 text-ink`}>
+      <body className={`${jost.variable} ${bodoni.variable} text-ink`}>
         {/* App shell: sidebar (desktop) + tab bar (mobile) + stage. */}
         <div className="app">
           <Navigation />
