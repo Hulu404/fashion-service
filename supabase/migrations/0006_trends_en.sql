@@ -1,23 +1,7 @@
--- Showcase trends for the home page. Public, read-only content.
-create table if not exists public.trends (
-  id          uuid primary key default gen_random_uuid(),
-  number      int not null unique,
-  eyebrow     text not null,
-  title       text not null,
-  description text not null,
-  lead        text not null,            -- longer copy shown in the story overlay
-  color_story jsonb not null default '[]', -- [{ "name": "...", "hex": "#..." }]
-  created_at  timestamptz not null default now()
-);
-
-alter table public.trends enable row level security;
-
--- Trends are public showcase data — anyone may read them.
-drop policy if exists "Trends are public" on public.trends;
-create policy "Trends are public"
-  on public.trends for select
-  using (true);
-
+-- Re-seed the showcase trends in English. 0005 used `do nothing`, so databases
+-- that were already seeded with the original Russian copy keep the old rows.
+-- This migration upserts with `do update`, translating those existing rows in
+-- place (and is a no-op on a freshly seeded English database).
 insert into public.trends (number, eyebrow, title, description, lead, color_story) values
   (1, 'Colour of the season', 'Warm neutral',
    'Brown is the new black — softer, richer, calmer.',
@@ -43,4 +27,9 @@ insert into public.trends (number, eyebrow, title, description, lead, color_stor
    'Deep warm tones instead of black and sequins.',
    'Evening is shifting from shimmer to depth of colour: an espresso dress, a bordeaux clutch, a slim champagne belt — dressier, softer and more modern than any black classic.',
    '[{"name":"Espresso","hex":"#3B2A20"},{"name":"Bordeaux","hex":"#6E2A38"},{"name":"Champagne","hex":"#C7B299"}]')
-on conflict (number) do nothing;
+on conflict (number) do update set
+  eyebrow     = excluded.eyebrow,
+  title       = excluded.title,
+  description = excluded.description,
+  lead        = excluded.lead,
+  color_story = excluded.color_story;
