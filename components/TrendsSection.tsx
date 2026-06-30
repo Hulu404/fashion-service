@@ -27,7 +27,7 @@ export default function TrendsSection({ trends }: { trends: Trend[] }) {
             type="button"
             className="trend-trigger"
             onClick={() => setActive(t)}
-            aria-label={`Открыть: ${t.title}`}
+            aria-label={`Open: ${t.title}`}
           >
             <TrendCard trend={t} />
           </button>
@@ -40,7 +40,7 @@ export default function TrendsSection({ trends }: { trends: Trend[] }) {
         variant="dialog"
         eyebrow={active?.eyebrow}
         title={active?.title}
-        ariaLabel={active ? `История тренда: ${active.title}` : 'История тренда'}
+        ariaLabel={active ? `Trend story: ${active.title}` : 'Trend story'}
       >
         {active && (
           <>

@@ -48,7 +48,7 @@ export default function WardrobeScreen({ userId }: Props) {
       .order('created_at', { ascending: false })
 
     if (error) {
-      setLoadError('Не удалось загрузить гардероб.')
+      setLoadError('Could not load the wardrobe.')
       setLoading(false)
       return
     }
@@ -117,7 +117,7 @@ export default function WardrobeScreen({ userId }: Props) {
         .update(fields)
         .eq('id', editing.item.id)
       if (error) {
-        setEditorError('Не удалось сохранить изменения.')
+        setEditorError('Could not save changes.')
         setSaving(false)
         return
       }
@@ -126,7 +126,7 @@ export default function WardrobeScreen({ userId }: Props) {
         .from('wardrobe_items')
         .insert({ user_id: userId, source: 'manual', image_path: null, ...fields })
       if (error) {
-        setEditorError('Не удалось добавить вещь.')
+        setEditorError('Could not add the item.')
         setSaving(false)
         return
       }
@@ -138,7 +138,7 @@ export default function WardrobeScreen({ userId }: Props) {
   }
 
   async function deleteItem(item: WardrobeItem) {
-    if (typeof window !== 'undefined' && !window.confirm('Удалить вещь из гардероба?')) return
+    if (typeof window !== 'undefined' && !window.confirm('Delete this item from the wardrobe?')) return
     // Optimistic removal; reload on failure to resync.
     setItems((prev) => prev.filter((it) => it.id !== item.id))
     const { error } = await supabase.from('wardrobe_items').delete().eq('id', item.id)
@@ -159,14 +159,14 @@ export default function WardrobeScreen({ userId }: Props) {
       <div className="flex items-center gap-3.5 px-5 pt-6 pb-2 sticky top-0 bg-oat z-10">
         <a
           href="/podbor"
-          aria-label="Назад"
+          aria-label="Back"
           className="w-9 h-9 rounded-full border border-[color:var(--hair)] bg-porcelain-2 grid place-items-center text-ink hover:bg-porcelain lg:hidden"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="M15 5l-7 7 7 7" />
           </svg>
         </a>
-        <h1 className="font-display text-2xl text-ink">Гардероб</h1>
+        <h1 className="font-display text-2xl text-ink">Wardrobe</h1>
         <button
           type="button"
           className="ml-auto text-[11px] tracking-[0.08em] uppercase text-mocha hover:text-oxblood"
@@ -175,7 +175,7 @@ export default function WardrobeScreen({ userId }: Props) {
             setEditing({ mode: 'add' })
           }}
         >
-          + Вручную
+          + Manually
         </button>
       </div>
 
@@ -190,7 +190,7 @@ export default function WardrobeScreen({ userId }: Props) {
                 aria-pressed={categoryFilter === null}
                 onClick={() => setCategoryFilter(null)}
               >
-                Все
+                All
               </button>
               {usedCategories.map((c) => (
                 <button
@@ -226,19 +226,19 @@ export default function WardrobeScreen({ userId }: Props) {
       {/* Body */}
       <div className="px-[var(--gut)] pt-5">
         {loading ? (
-          <p className="eyebrow">Загрузка…</p>
+          <p className="eyebrow">Loading…</p>
         ) : loadError ? (
           <div className="text-center py-10">
             <p className="text-sm text-oxblood font-light">{loadError}</p>
             <button type="button" className="btn mt-4" onClick={() => void load()}>
-              Повторить
+              Retry
             </button>
           </div>
         ) : items.length === 0 ? (
           <EmptyState />
         ) : filtered.length === 0 ? (
           <div className="text-center py-10">
-            <p className="text-sm text-ink-soft font-light">По выбранным фильтрам ничего нет.</p>
+            <p className="text-sm text-ink-soft font-light">Nothing matches the selected filters.</p>
             <button
               type="button"
               className="mt-3 text-sm text-ink border-b border-mocha pb-0.5 hover:text-oxblood hover:border-oxblood"
@@ -247,7 +247,7 @@ export default function WardrobeScreen({ userId }: Props) {
                 setSeasonFilter(null)
               }}
             >
-              Сбросить фильтры
+              Reset filters
             </button>
           </div>
         ) : (
@@ -270,7 +270,7 @@ export default function WardrobeScreen({ userId }: Props) {
 
       {editing && (
         <ItemEditor
-          title={editing.mode === 'edit' ? 'Изменить вещь' : 'Добавить вещь'}
+          title={editing.mode === 'edit' ? 'Edit item' : 'Add item'}
           initial={editing.mode === 'edit' ? draftFromItem(editing.item) : undefined}
           busy={saving}
           error={editorError}
@@ -292,13 +292,13 @@ function EmptyState() {
           <circle cx="9" cy="9" r="1.4" />
         </svg>
       </div>
-      <h2 className="font-display text-xl text-ink">Гардероб пока пуст</h2>
+      <h2 className="font-display text-xl text-ink">Your wardrobe is empty</h2>
       <p className="mt-3 text-sm text-ink-soft font-light leading-relaxed max-w-[32ch] mx-auto">
-        Сфотографируйте вещь — ИИ распознает категорию, цвет и материал, а вы подтвердите. Так образы
-        будут точнее.
+        Take a photo of an item — the AI detects its category, colour and material, and you confirm.
+        That makes outfits more precise.
       </p>
       <a href="/podbor" className="btn mt-6 inline-block">
-        Добавить первую вещь по фото
+        Add your first item by photo
       </a>
     </div>
   )

@@ -1,27 +1,27 @@
-// Canonical colour dictionary for ÉCLAT. The image-analysis model must pick
+// Canonical colour dictionary for SB-fashion. The image-analysis model must pick
 // colour names from this list so wardrobe items share a consistent palette.
 
 export type ColorEntry = { name: string; hex: string }
 
 export const COLORS: ColorEntry[] = [
-  { name: 'Кэмел', hex: '#C19A6B' },
-  { name: 'Крем', hex: '#EFE7D3' },
-  { name: 'Эспрессо', hex: '#3B2A20' },
-  { name: 'Коньяк', hex: '#9A5B34' },
-  { name: 'Мокко', hex: '#6F5240' },
-  { name: 'Стон', hex: '#ABA197' },
-  { name: 'Белый', hex: '#F4EFE3' },
-  { name: 'Чернила', hex: '#222831' },
-  { name: 'Чёрный', hex: '#1A1714' },
-  { name: 'Бордо', hex: '#6E2A38' },
-  { name: 'Пудра', hex: '#D9BFB7' },
-  { name: 'Олива', hex: '#73703F' },
-  { name: 'Беж', hex: '#C9B79A' },
-  { name: 'Графит', hex: '#3A3A3C' },
-  { name: 'Экрю', hex: '#E4DAC4' },
-  { name: 'Оникс', hex: '#1B1A1C' },
-  { name: 'Шампань', hex: '#C7B299' },
-  { name: 'Камень', hex: '#B7AE9E' },
+  { name: 'Camel', hex: '#C19A6B' },
+  { name: 'Cream', hex: '#EFE7D3' },
+  { name: 'Espresso', hex: '#3B2A20' },
+  { name: 'Cognac', hex: '#9A5B34' },
+  { name: 'Mocha', hex: '#6F5240' },
+  { name: 'Stone', hex: '#ABA197' },
+  { name: 'White', hex: '#F4EFE3' },
+  { name: 'Ink', hex: '#222831' },
+  { name: 'Black', hex: '#1A1714' },
+  { name: 'Bordeaux', hex: '#6E2A38' },
+  { name: 'Powder', hex: '#D9BFB7' },
+  { name: 'Olive', hex: '#73703F' },
+  { name: 'Beige', hex: '#C9B79A' },
+  { name: 'Graphite', hex: '#3A3A3C' },
+  { name: 'Ecru', hex: '#E4DAC4' },
+  { name: 'Onyx', hex: '#1B1A1C' },
+  { name: 'Champagne', hex: '#C7B299' },
+  { name: 'Pebble', hex: '#B7AE9E' },
 ]
 
 export const COLOR_NAMES: string[] = COLORS.map((c) => c.name)

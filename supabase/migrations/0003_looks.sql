@@ -1,4 +1,4 @@
--- Block 4: generated outfits ("образы").
+-- Block 4: generated outfits.
 -- Each row is one generation request and holds its array of 3 looks as JSON.
 create table if not exists public.looks (
   id         uuid primary key default gen_random_uuid(),

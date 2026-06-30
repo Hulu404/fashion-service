@@ -16,15 +16,15 @@ export default function Hero() {
       </div>
 
       <div className="hero-copy">
-        <span className="eyebrow">Коллекция</span>
-        <h1>Новый взгляд — на каждый день</h1>
-        <p>AI подбирает образы по вашему фото и настроению — и объясняет, почему они работают.</p>
+        <span className="eyebrow">Collection</span>
+        <h1>A fresh look — for every day</h1>
+        <p>AI builds outfits from your photo and mood — and explains why they work.</p>
         <div className="hero-cta">
           <a className="btn" href="/podbor">
-            Подобрать образ
+            Build an outfit
           </a>
           <a className="linklike" href="/podbor">
-            или загрузить фото
+            or upload a photo
           </a>
         </div>
       </div>

@@ -1,4 +1,4 @@
-# ÉCLAT — AI-стилист
+# SB-fashion — AI-стилист
 
 Мобильный AI-стилист на Next.js (App Router) + Supabase + Anthropic Claude.
 Витрина трендов, подбор образов по профилю и фото, распознавание вещей,

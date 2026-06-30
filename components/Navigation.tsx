@@ -8,9 +8,9 @@ import { getSupabaseBrowser } from '../lib/supabaseClient'
 type Tab = 'home' | 'build' | 'fav'
 
 const ITEMS: { tab: Tab; href: string; label: string }[] = [
-  { tab: 'home', href: '/', label: 'Витрина' },
-  { tab: 'build', href: '/podbor', label: 'Подбор' },
-  { tab: 'fav', href: '/favorites', label: 'Избранное' },
+  { tab: 'home', href: '/', label: 'Showcase' },
+  { tab: 'build', href: '/podbor', label: 'Build' },
+  { tab: 'fav', href: '/favorites', label: 'Favorites' },
 ]
 
 function TabIcon({ tab }: { tab: Tab }) {
@@ -96,11 +96,11 @@ export default function Navigation() {
       {/* Desktop sidebar */}
       <aside className="sidebar">
         <div className="side-brand">
-          <div className="font-display text-2xl tracking-[0.14em] text-ink">ÉCLAT</div>
-          <p className="eyebrow mt-1">AI-стилист</p>
+          <div className="font-display text-2xl tracking-[0.14em] text-ink">SB-fashion</div>
+          <p className="eyebrow mt-1">AI stylist</p>
         </div>
 
-        <nav className="side-menu" aria-label="Основная навигация">
+        <nav className="side-menu" aria-label="Main navigation">
           {ITEMS.map((it) => (
             <Link
               key={it.tab}
@@ -117,13 +117,13 @@ export default function Navigation() {
             </Link>
           ))}
           <Link href="/wardrobe" className="side-item-sub" data-tab="wardrobe">
-            Гардероб
+            Wardrobe
           </Link>
         </nav>
 
         <div className="side-foot">
           <Link href="/podbor" className="btn full">
-            Подобрать образ
+            Build an outfit
           </Link>
           <div className="side-user">
             {email ? (
@@ -132,12 +132,12 @@ export default function Navigation() {
                   {email}
                 </span>
                 <button type="button" onClick={signOut} className="side-user-out">
-                  Выйти
+                  Sign out
                 </button>
               </>
             ) : (
               <Link href="/podbor" className="side-user-out">
-                Войти
+                Sign in
               </Link>
             )}
           </div>
@@ -145,7 +145,7 @@ export default function Navigation() {
       </aside>
 
       {/* Mobile tab bar */}
-      <nav className="tabbar" aria-label="Основная навигация">
+      <nav className="tabbar" aria-label="Main navigation">
         {ITEMS.map((it) => (
           <Link
             key={it.tab}

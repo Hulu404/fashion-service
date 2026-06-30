@@ -54,20 +54,20 @@ export default function ItemEditor({
       onClick={onCancel}
     >
       <div
-        className="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border border-[color:var(--hair)] bg-oat p-5 shadow-eclat"
+        className="w-full max-w-md max-h-[90vh] overflow-y-auto rounded-2xl border border-[color:var(--hair)] bg-oat p-5 shadow-sb"
         onClick={(e) => e.stopPropagation()}
       >
         <h2 className="font-display text-xl text-ink mb-4">{title}</h2>
 
         <div className="space-y-3">
           <label className="block">
-            <span className="field-label">Категория</span>
+            <span className="field-label">Category</span>
             <select
               className="field-input"
               value={CATEGORIES.includes(draft.category as (typeof CATEGORIES)[number]) ? draft.category : ''}
               onChange={(e) => setDraft({ ...draft, category: e.target.value })}
             >
-              <option value="">— выбрать —</option>
+              <option value="">— select —</option>
               {CATEGORIES.map((c) => (
                 <option key={c} value={c}>
                   {c}
@@ -77,14 +77,14 @@ export default function ItemEditor({
           </label>
 
           <label className="block">
-            <span className="field-label">Цвет</span>
+            <span className="field-label">Color</span>
             <div className="flex items-center gap-2">
               <select
                 className="field-input"
                 value={COLOR_NAMES.includes(draft.color_name) ? draft.color_name : ''}
                 onChange={(e) => pickColor(e.target.value)}
               >
-                <option value="">— выбрать —</option>
+                <option value="">— select —</option>
                 {COLOR_NAMES.map((c) => (
                   <option key={c} value={c}>
                     {c}
@@ -102,20 +102,20 @@ export default function ItemEditor({
           </label>
 
           <label className="block">
-            <span className="field-label">Материал</span>
+            <span className="field-label">Material</span>
             <input
               className="field-input"
-              placeholder="например, шерсть"
+              placeholder="e.g. wool"
               value={draft.material}
               onChange={(e) => setDraft({ ...draft, material: e.target.value })}
             />
           </label>
 
           <label className="block">
-            <span className="field-label">Теги стиля (через запятую)</span>
+            <span className="field-label">Style tags (comma-separated)</span>
             <input
               className="field-input"
-              placeholder="Минимализм, Классика"
+              placeholder="Minimal, Classic"
               value={draft.style_tags.join(', ')}
               onChange={(e) =>
                 setDraft({
@@ -130,13 +130,13 @@ export default function ItemEditor({
           </label>
 
           <label className="block">
-            <span className="field-label">Сезон</span>
+            <span className="field-label">Season</span>
             <select
               className="field-input"
               value={SEASONS.includes(draft.season as (typeof SEASONS)[number]) ? draft.season : ''}
               onChange={(e) => setDraft({ ...draft, season: e.target.value })}
             >
-              <option value="">— выбрать —</option>
+              <option value="">— select —</option>
               {SEASONS.map((s) => (
                 <option key={s} value={s}>
                   {s}
@@ -150,7 +150,7 @@ export default function ItemEditor({
 
         <div className="flex gap-2 mt-5">
           <button type="button" className="btn" disabled={busy} onClick={() => onSave(draft)}>
-            {busy ? 'Сохранение…' : 'Сохранить'}
+            {busy ? 'Saving…' : 'Save'}
           </button>
           <button
             type="button"
@@ -158,7 +158,7 @@ export default function ItemEditor({
             disabled={busy}
             onClick={onCancel}
           >
-            Отмена
+            Cancel
           </button>
         </div>
       </div>

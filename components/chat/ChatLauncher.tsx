@@ -8,7 +8,7 @@ type Msg = { role: 'user' | 'assistant'; content: string }
 
 const GREETING: Msg = {
   role: 'assistant',
-  content: 'Здравствуйте! Я помогу собрать образ или подсказать, с чем носить вещь. О чём думаете?',
+  content: 'Hi! I can help you put an outfit together or suggest what to wear with a piece. What are you thinking about?',
 }
 
 export default function ChatLauncher() {
@@ -45,7 +45,7 @@ export default function ChatLauncher() {
         data: { session },
       } = await supabase.auth.getSession()
       if (!session) {
-        setError('Войдите, чтобы спросить стилиста.')
+        setError('Sign in to ask the stylist.')
         setBusy(false)
         return
       }
@@ -59,13 +59,13 @@ export default function ChatLauncher() {
       })
       const data = await res.json()
       if (!res.ok || !data?.reply) {
-        setError(data?.error || 'Не удалось получить ответ стилиста.')
+        setError(data?.error || 'Could not get a reply from the stylist.')
         setBusy(false)
         return
       }
       setMessages((m) => [...m, { role: 'assistant', content: data.reply }])
     } catch {
-      setError('Сбой соединения. Попробуйте ещё раз.')
+      setError('Connection error. Please try again.')
     } finally {
       setBusy(false)
     }
@@ -75,28 +75,28 @@ export default function ChatLauncher() {
 
   return (
     <>
-      <button type="button" className="fab" onClick={() => setOpen(true)} aria-label="Спросить стилиста">
-        <span className="fab-pulse" aria-hidden="true" /> Спросить стилиста
+      <button type="button" className="fab" onClick={() => setOpen(true)} aria-label="Ask the stylist">
+        <span className="fab-pulse" aria-hidden="true" /> Ask the stylist
       </button>
 
       <Overlay
         open={open}
         onClose={() => setOpen(false)}
         variant="dock"
-        eyebrow="AI-стилист"
-        title="Анна, ваш стилист"
-        ariaLabel="Чат со стилистом"
+        eyebrow="AI stylist"
+        title="Anna, your stylist"
+        ariaLabel="Chat with the stylist"
       >
         <div className="chat-body" ref={bodyRef} aria-live="polite">
           {messages.map((m, i) => (
             <div key={i} className={`bub ${m.role === 'user' ? 'me' : 'ai'}`}>
-              {m.role === 'assistant' && <span className="who">Стилист</span>}
+              {m.role === 'assistant' && <span className="who">Stylist</span>}
               {m.content}
             </div>
           ))}
           {busy && (
             <div className="bub ai">
-              <span className="who">Стилист</span>…
+              <span className="who">Stylist</span>…
             </div>
           )}
           {error && <p className="chat-err">{error}</p>}
@@ -109,15 +109,15 @@ export default function ChatLauncher() {
             onKeyDown={(e) => {
               if (e.key === 'Enter') send()
             }}
-            placeholder="Спросите стилиста…"
-            aria-label="Сообщение стилисту"
+            placeholder="Ask the stylist…"
+            aria-label="Message to the stylist"
           />
           <button
             type="button"
             className="chat-send"
             onClick={send}
             disabled={busy}
-            aria-label="Отправить"
+            aria-label="Send"
           >
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M5 12h14M13 6l6 6-6 6" />

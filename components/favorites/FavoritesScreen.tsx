@@ -39,14 +39,14 @@ export default function FavoritesScreen({ userId }: Props) {
       <header className="flex items-center gap-3 px-[var(--gut)] pt-7 pb-3">
         <a
           href="/podbor"
-          aria-label="Назад"
+          aria-label="Back"
           className="w-9 h-9 rounded-full border border-[color:var(--hair)] bg-porcelain-2 grid place-items-center text-ink hover:bg-porcelain lg:hidden"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="M15 5l-7 7 7 7" />
           </svg>
         </a>
-        <h1 className="font-display text-2xl text-ink">Избранное</h1>
+        <h1 className="font-display text-2xl text-ink">Favorites</h1>
         {items.length > 0 && (
           <span className="ml-1 inline-grid place-items-center min-w-[20px] h-5 px-1.5 rounded-full bg-oxblood text-porcelain text-[11px] leading-none">
             {items.length}
@@ -55,7 +55,7 @@ export default function FavoritesScreen({ userId }: Props) {
       </header>
 
       {loading ? (
-        <p className="px-[var(--gut)] eyebrow">Загрузка…</p>
+        <p className="px-[var(--gut)] eyebrow">Loading…</p>
       ) : items.length === 0 ? (
         <div className="px-10 py-20 text-center lg:max-w-sm lg:mx-auto">
           <div className="text-mocha-soft flex justify-center mb-4" aria-hidden="true">
@@ -63,12 +63,12 @@ export default function FavoritesScreen({ userId }: Props) {
               <path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" />
             </svg>
           </div>
-          <h3 className="font-display text-xl text-ink mb-2">Здесь пока пусто</h3>
+          <h3 className="font-display text-xl text-ink mb-2">Nothing saved yet</h3>
           <p className="text-sm text-ink-soft font-light leading-relaxed max-w-[26ch] mx-auto">
-            Нажмите ♡ на любом образе в результатах подбора — он появится здесь.
+            Tap ♡ on any outfit in your results — it will show up here.
           </p>
           <a href="/podbor" className="btn mt-6 inline-block">
-            Собрать образы
+            Build outfits
           </a>
         </div>
       ) : (

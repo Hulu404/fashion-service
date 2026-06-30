@@ -177,7 +177,7 @@ export default function PodborPage() {
       })
       const data = await res.json()
       if (!res.ok || !Array.isArray(data?.looks) || data.looks.length === 0) {
-        setGenError(data?.error || 'Не удалось собрать образы. Попробуйте ещё раз.')
+        setGenError(data?.error || 'Could not build outfits. Please try again.')
         setView('error')
         return
       }
@@ -185,7 +185,7 @@ export default function PodborPage() {
       setUsingSeed(Boolean(data.usingSeed))
       setView('result')
     } catch {
-      setGenError('Сбой при генерации. Проверьте подключение.')
+      setGenError('Generation failed. Check your connection.')
       setView('error')
     }
   }, [session, params.occasion])
@@ -209,7 +209,7 @@ export default function PodborPage() {
   if (phase === 'checking' || phase === 'loading-profile') {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <div className="eyebrow">Загрузка…</div>
+        <div className="eyebrow">Loading…</div>
       </main>
     )
   }
@@ -252,19 +252,19 @@ export default function PodborPage() {
             <button
               type="button"
               onClick={() => setView('form')}
-              aria-label="Назад к параметрам"
+              aria-label="Back to options"
               className="w-9 h-9 rounded-full border border-[color:var(--hair)] bg-porcelain-2 grid place-items-center text-ink hover:bg-porcelain"
             >
               <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
                 <path d="M15 5l-7 7 7 7" />
               </svg>
             </button>
-            <h1 className="font-display text-2xl text-ink">Ваши образы</h1>
+            <h1 className="font-display text-2xl text-ink">Your outfits</h1>
           </div>
           <div className="mx-[var(--gut)] mt-4 rounded-2xl border border-[color:var(--hair-soft)] bg-porcelain-2 p-8 text-center">
             <p className="text-sm text-oxblood font-light">{genError}</p>
             <button type="button" className="btn mt-5" onClick={regenerate}>
-              Попробовать снова
+              Try again
             </button>
           </div>
         </div>
@@ -275,14 +275,14 @@ export default function PodborPage() {
           href="/wardrobe"
           className="text-[11px] text-mocha tracking-[0.08em] uppercase hover:text-oxblood"
         >
-          Мой гардероб
+          My wardrobe
         </a>
         <button
           type="button"
           onClick={signOut}
           className="text-[11px] text-stone tracking-[0.08em] uppercase hover:text-oxblood"
         >
-          Выйти
+          Sign out
         </button>
       </div>
     </main>

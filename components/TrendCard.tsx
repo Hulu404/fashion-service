@@ -3,7 +3,7 @@ import ColorStory from './ColorStory'
 export default function TrendCard({ trend }: { trend: any }){
   const colors = trend.color_story || []
   return (
-    <article className="bg-white rounded-e p-4 shadow-sm w-full h-full flex flex-col">
+    <article className="bg-white rounded-3xl p-4 shadow-sm w-full h-full flex flex-col">
       <div className="flex justify-between items-start gap-3">
         <div>
           <div className="text-xs text-stone">{trend.eyebrow}</div>

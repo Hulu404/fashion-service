@@ -35,7 +35,7 @@ export default function FavoritesPage() {
   if (phase === 'checking') {
     return (
       <main className="min-h-screen flex items-center justify-center">
-        <div className="eyebrow">Загрузка…</div>
+        <div className="eyebrow">Loading…</div>
       </main>
     )
   }

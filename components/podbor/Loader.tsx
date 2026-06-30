@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-const WORDS = ['Анализируем запрос', 'Читаем палитру', 'Подбираем вещи', 'Собираем образы']
+const WORDS = ['Analyzing your request', 'Reading the palette', 'Picking the pieces', 'Assembling outfits']
 
 /**
  * Full-screen loader shown while looks are generated. Cycles the captions like
@@ -30,12 +30,12 @@ export default function Loader() {
 
   return (
     <main className="max-w-md mx-auto min-h-screen bg-oat flex items-center justify-center px-8 pb-24 phone-shell">
-      <div className="loader" role="status" aria-live="polite" aria-label="Собираем образы">
+      <div className="loader" role="status" aria-live="polite" aria-label="Assembling outfits">
         <div className="ring" aria-hidden="true" />
         <div className="lw" style={{ opacity: visible ? 1 : 0 }}>
           {WORDS[index]}
         </div>
-        <div className="sub">ÉCLAT собирает образы</div>
+        <div className="sub">SB-fashion is assembling outfits</div>
       </div>
     </main>
   )

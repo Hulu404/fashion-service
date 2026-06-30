@@ -45,11 +45,11 @@ export default function PhotoZone({ userId, onSaved }: Props) {
   async function handleFile(file: File) {
     setError(null)
     if (!ACCEPTED.includes(file.type)) {
-      setError('Поддерживаются JPG, PNG, WEBP или GIF.')
+      setError('JPG, PNG, WEBP or GIF are supported.')
       return
     }
     if (file.size > MAX_BYTES) {
-      setError('Файл слишком большой — до 8 МБ.')
+      setError('File is too large — up to 8 MB.')
       return
     }
 
@@ -61,7 +61,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
       .from('wardrobe')
       .upload(path, file, { contentType: file.type, upsert: false })
     if (upErr) {
-      setError('Не удалось загрузить фото. Попробуйте ещё раз.')
+      setError('Could not upload the photo. Please try again.')
       setPhase('error')
       return
     }
@@ -83,7 +83,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
       })
       const data = await res.json()
       if (!res.ok) {
-        setError(data?.error || 'Не удалось разобрать фото.')
+        setError(data?.error || 'Could not analyze the photo.')
         setPhase('error')
         return
       }
@@ -97,7 +97,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
       }
       setPhase('confirm')
     } catch {
-      setError('Сбой при разборе изображения. Проверьте подключение.')
+      setError('Image analysis failed. Check your connection.')
       setPhase('error')
     }
   }
@@ -122,7 +122,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
       season: garment.season || null,
     })
     if (insErr) {
-      setError('Не удалось сохранить вещь в гардероб.')
+      setError('Could not save the item to the wardrobe.')
       setPhase('confirm')
       return
     }
@@ -138,7 +138,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
       .update({ body_type: person.body_type || null, color_season: person.color_season || null })
       .eq('id', userId)
     if (updErr) {
-      setError('Не удалось сохранить данные профиля.')
+      setError('Could not save profile data.')
       setPhase('confirm')
       return
     }
@@ -152,21 +152,21 @@ export default function PhotoZone({ userId, onSaved }: Props) {
     const busy = phase === 'saving'
     return (
       <div className="rounded-xl border border-[color:var(--hair)] bg-porcelain-2 p-4">
-        <p className="eyebrow mb-1">Проверьте распознанное</p>
+        <p className="eyebrow mb-1">Check the recognised details</p>
         <p className="text-xs text-stone font-light mb-4">
-          ИИ мог ошибиться из-за освещения — поправьте значения перед сохранением.
+          The AI may have erred due to lighting — adjust the values before saving.
         </p>
 
         {kind === 'garment' ? (
           <div className="space-y-3">
-            <Labeled label="Категория">
+            <Labeled label="Category">
               <input
                 className="field-input"
                 value={garment.category}
                 onChange={(e) => setGarment({ ...garment, category: e.target.value })}
               />
             </Labeled>
-            <Labeled label="Цвет">
+            <Labeled label="Color">
               <select
                 className="field-input"
                 value={COLOR_NAMES.includes(garment.color_name) ? garment.color_name : ''}
@@ -175,7 +175,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
                   setGarment({ ...garment, color_name: name, color_hex: hexForColor(name) || garment.color_hex })
                 }}
               >
-                <option value="">— выбрать —</option>
+                <option value="">— select —</option>
                 {COLOR_NAMES.map((c) => (
                   <option key={c} value={c}>
                     {c}
@@ -190,14 +190,14 @@ export default function PhotoZone({ userId, onSaved }: Props) {
                 />
               )}
             </Labeled>
-            <Labeled label="Материал">
+            <Labeled label="Material">
               <input
                 className="field-input"
                 value={garment.material}
                 onChange={(e) => setGarment({ ...garment, material: e.target.value })}
               />
             </Labeled>
-            <Labeled label="Теги стиля (через запятую)">
+            <Labeled label="Style tags (comma-separated)">
               <input
                 className="field-input"
                 value={garment.style_tags.join(', ')}
@@ -212,7 +212,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
                 }
               />
             </Labeled>
-            <Labeled label="Сезон">
+            <Labeled label="Season">
               <input
                 className="field-input"
                 value={garment.season}
@@ -222,21 +222,21 @@ export default function PhotoZone({ userId, onSaved }: Props) {
           </div>
         ) : (
           <div className="space-y-3">
-            <Labeled label="Тип фигуры">
+            <Labeled label="Body type">
               <input
                 className="field-input"
                 value={person.body_type}
                 onChange={(e) => setPerson({ ...person, body_type: e.target.value })}
               />
             </Labeled>
-            <Labeled label="Цветотип">
+            <Labeled label="Color season">
               <input
                 className="field-input"
                 value={person.color_season}
                 onChange={(e) => setPerson({ ...person, color_season: e.target.value })}
               />
             </Labeled>
-            <Labeled label="Заметка">
+            <Labeled label="Note">
               <input
                 className="field-input"
                 value={person.notes}
@@ -255,7 +255,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
             disabled={busy}
             onClick={kind === 'garment' ? saveGarment : savePerson}
           >
-            {busy ? 'Сохранение…' : kind === 'garment' ? 'Сохранить в гардероб' : 'Сохранить в профиль'}
+            {busy ? 'Saving…' : kind === 'garment' ? 'Save to wardrobe' : 'Save to profile'}
           </button>
           <button
             type="button"
@@ -263,7 +263,7 @@ export default function PhotoZone({ userId, onSaved }: Props) {
             disabled={busy}
             onClick={reset}
           >
-            Отмена
+            Cancel
           </button>
         </div>
       </div>
@@ -274,14 +274,14 @@ export default function PhotoZone({ userId, onSaved }: Props) {
     return (
       <div className="rounded-xl border border-oxblood bg-[rgba(196,59,114,0.06)] p-5 text-center">
         <p className="text-oxblood font-medium text-sm">
-          {kind === 'garment' ? 'Вещь добавлена в гардероб.' : 'Параметры сохранены в профиль.'}
+          {kind === 'garment' ? 'Item added to your wardrobe.' : 'Details saved to your profile.'}
         </p>
         <button
           type="button"
           className="mt-3 text-sm text-ink border-b border-mocha pb-0.5 hover:text-oxblood hover:border-oxblood"
           onClick={reset}
         >
-          Добавить ещё фото
+          Add another photo
         </button>
       </div>
     )
@@ -313,13 +313,13 @@ export default function PhotoZone({ userId, onSaved }: Props) {
         </div>
         <div className="t">
           {phase === 'uploading'
-            ? 'Загружаем фото…'
+            ? 'Uploading photo…'
             : phase === 'analyzing'
-              ? 'ИИ распознаёт изображение…'
-              : 'Добавить фото себя или вещи'}
+              ? 'AI is recognising the image…'
+              : 'Add a photo of yourself or an item'}
         </div>
         <div className="s">
-          {busyDrop ? 'Это займёт несколько секунд' : 'ИИ распознает фигуру, цвет и категорию'}
+          {busyDrop ? 'This takes a few seconds' : 'AI detects body shape, colour and category'}
         </div>
       </button>
       {error && <p className="text-sm text-oxblood font-light mt-2">{error}</p>}

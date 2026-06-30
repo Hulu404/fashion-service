@@ -1,24 +1,24 @@
-// Shared options + types for the "Гардероб" (wardrobe) screen.
+// Shared options + types for the wardrobe screen.
 // Categories/seasons mirror the vocabulary the analysis model is asked to use
 // in app/api/analyze/route.ts so photo-recognised and manual items align.
 
 export const CATEGORIES = [
-  'Пальто',
-  'Жакет',
-  'Рубашка',
-  'Футболка',
-  'Свитер',
-  'Платье',
-  'Юбка',
-  'Брюки',
-  'Джинсы',
-  'Обувь',
-  'Сумка',
-  'Аксессуар',
-  'Ремень',
+  'Coat',
+  'Jacket',
+  'Shirt',
+  'T-shirt',
+  'Sweater',
+  'Dress',
+  'Skirt',
+  'Trousers',
+  'Jeans',
+  'Shoes',
+  'Bag',
+  'Accessory',
+  'Belt',
 ] as const
 
-export const SEASONS = ['Демисезон', 'Лето', 'Зима', 'Всесезон'] as const
+export const SEASONS = ['Mid-season', 'Summer', 'Winter', 'All-season'] as const
 
 export type WardrobeItem = {
   id: string

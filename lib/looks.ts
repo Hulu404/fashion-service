@@ -40,32 +40,33 @@ export type Look = {
  * the model still has concrete pieces (and dictionary colours) to combine.
  */
 export const SEED_CATALOG: { category: string; color_name: string }[] = [
-  { category: 'Пальто', color_name: 'Кэмел' },
-  { category: 'Жакет', color_name: 'Графит' },
-  { category: 'Рубашка', color_name: 'Белый' },
-  { category: 'Свитер', color_name: 'Крем' },
-  { category: 'Брюки', color_name: 'Эспрессо' },
-  { category: 'Джинсы', color_name: 'Чернила' },
-  { category: 'Юбка', color_name: 'Олива' },
-  { category: 'Платье', color_name: 'Бордо' },
-  { category: 'Обувь', color_name: 'Коньяк' },
-  { category: 'Сумка', color_name: 'Мокко' },
-  { category: 'Ремень', color_name: 'Чёрный' },
+  { category: 'Coat', color_name: 'Camel' },
+  { category: 'Jacket', color_name: 'Graphite' },
+  { category: 'Shirt', color_name: 'White' },
+  { category: 'Sweater', color_name: 'Cream' },
+  { category: 'Trousers', color_name: 'Espresso' },
+  { category: 'Jeans', color_name: 'Ink' },
+  { category: 'Skirt', color_name: 'Olive' },
+  { category: 'Dress', color_name: 'Bordeaux' },
+  { category: 'Shoes', color_name: 'Cognac' },
+  { category: 'Bag', color_name: 'Mocha' },
+  { category: 'Belt', color_name: 'Black' },
 ]
 
 /** Maps a free-form category to one of the prototype's icon glyphs. */
 export function iconForCategory(category: string): LookIcon {
   const c = (category || '').toLowerCase()
-  if (/пальт|шуб|плащ/.test(c)) return 'coat'
-  if (/жакет|пиджак|блейзер|трен|куртк|кардиган/.test(c)) return 'jacket'
-  if (/рубашк|блуз/.test(c)) return 'shirt'
-  if (/брюк|джинс|штан|карго|легинс/.test(c)) return 'pants'
-  if (/юбк/.test(c)) return 'skirt'
-  if (/плать|сарафан/.test(c)) return 'dress'
-  if (/обув|туфл|ботин|кроссов|кед|лофер|балетк|сапог|сандал/.test(c)) return 'shoe'
-  if (/сумк|клатч|рюкзак|тоут/.test(c)) return 'bag'
-  if (/рем(е|ё)н|пояс/.test(c)) return 'belt'
-  if (/свитер|водолазк|джемпер|худи|топ|футболк|майк|лонгслив/.test(c)) return 'top'
+  if (/coat|overcoat|fur/.test(c)) return 'coat'
+  if (/jacket|blazer|trench|cardigan|parka/.test(c)) return 'jacket'
+  // Check tops (incl. t-shirt) before "shirt" so a tee doesn't match /shirt/.
+  if (/t-?shirt|tee|tank|sweater|knit|jumper|hoodie|longsleeve|turtleneck|top/.test(c)) return 'top'
+  if (/shirt|blouse/.test(c)) return 'shirt'
+  if (/trouser|pant|jean|chino|cargo|legging/.test(c)) return 'pants'
+  if (/skirt/.test(c)) return 'skirt'
+  if (/dress|gown|sundress/.test(c)) return 'dress'
+  if (/shoe|boot|sneaker|loafer|flat|sandal|heel/.test(c)) return 'shoe'
+  if (/bag|clutch|backpack|tote/.test(c)) return 'bag'
+  if (/belt/.test(c)) return 'belt'
   return 'top'
 }
 
@@ -82,7 +83,7 @@ export function lookKey(look: Look): string {
 
 /** CSS gradient for a look band, built from dictionary colour names. */
 export function gradientFromColors(names: string[]): string {
-  const hexes = (names.length ? names : ['Стон'])
+  const hexes = (names.length ? names : ['Stone'])
     .map((n) => hexForColor(n) ?? '#999')
   const first = hexes[0]
   const mid = hexes[Math.min(1, hexes.length - 1)]
@@ -118,7 +119,7 @@ function coerceLook(raw: any): Look | null {
   const items = Array.isArray(raw.items) ? raw.items.map(coerceItem) : []
   if (items.length === 0) return null
   return {
-    name: String(raw.name ?? 'Образ'),
+    name: String(raw.name ?? 'Look'),
     vibe: String(raw.vibe ?? ''),
     occasion: String(raw.occasion ?? ''),
     palette: Array.isArray(raw.palette) ? raw.palette.map((p: unknown) => String(p)) : [],

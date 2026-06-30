@@ -69,28 +69,28 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
       <div className="flex items-center gap-3.5 px-5 pt-6 pb-2 sticky top-0 bg-oat z-10 lg:px-[var(--gut)]">
         <a
           href="/"
-          aria-label="На витрину"
+          aria-label="To showcase"
           className="w-9 h-9 rounded-full border border-[color:var(--hair)] bg-porcelain-2 grid place-items-center text-ink hover:bg-porcelain lg:hidden"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="M15 5l-7 7 7 7" />
           </svg>
         </a>
-        <h1 className="font-display text-2xl text-ink">Соберём ваш образ</h1>
+        <h1 className="font-display text-2xl text-ink">Let’s build your look</h1>
         <span className="ml-auto text-[11px] text-stone font-light" aria-live="polite">
-          {saving ? 'Сохранение…' : 'Сохранено'}
+          {saving ? 'Saving…' : 'Saved'}
         </span>
       </div>
 
       <div className="build-grid">
         <div className="build-main">
       <p className="px-[var(--gut)] pt-1.5 pb-1.5 text-sm text-ink-soft font-light leading-relaxed">
-        Отметьте, что нужно. Чем точнее ввод, тем точнее подбор.
+        Mark what you need. The more precise the input, the better the result.
       </p>
 
-      {/* Повод — single-select */}
+      {/* Occasion — single-select */}
       <fieldset className="px-[var(--gut)] pt-5">
-        <legend className="field-label">Повод</legend>
+        <legend className="field-label">Occasion</legend>
         <div className="chips">
           {OCCASIONS.map((o) => (
             <Chip key={o} label={o} active={value.occasion === o} onToggle={() => setOccasion(o)} />
@@ -98,10 +98,10 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
         </div>
       </fieldset>
 
-      {/* Стиль — multi-select, max 2 */}
+      {/* Style — multi-select, max 2 */}
       <fieldset className="px-[var(--gut)] pt-6">
         <legend className="field-label">
-          Стиль <span className="hint">— до двух</span>
+          Style <span className="hint">— up to two</span>
         </legend>
         <div className="chips">
           {STYLES.map((s) => (
@@ -110,9 +110,9 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
         </div>
       </fieldset>
 
-      {/* Палитра — card strips */}
+      {/* Palette — card strips */}
       <fieldset className="px-[var(--gut)] pt-6">
-        <legend className="field-label">Палитра</legend>
+        <legend className="field-label">Palette</legend>
         <div className="pal-grid">
           {PALETTES.map((p) => (
             <button
@@ -133,9 +133,9 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
         </div>
       </fieldset>
 
-      {/* Посадка — single-select */}
+      {/* Fit — single-select */}
       <fieldset className="px-[var(--gut)] pt-6">
-        <legend className="field-label">Посадка</legend>
+        <legend className="field-label">Fit</legend>
         <div className="chips">
           {FITS.map((f) => (
             <Chip key={f} label={f} active={value.fit === f} onToggle={() => setFit(f)} />
@@ -143,9 +143,9 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
         </div>
       </fieldset>
 
-      {/* Бюджет — single-select */}
+      {/* Budget — single-select */}
       <fieldset className="px-[var(--gut)] pt-6">
-        <legend className="field-label">Бюджет на образ</legend>
+        <legend className="field-label">Outfit budget</legend>
         <div className="chips">
           {BUDGETS.map((b) => (
             <Chip key={b} label={b} active={value.budget === b} onToggle={() => setBudget(b)} />
@@ -153,17 +153,17 @@ export default function BuildForm({ value, onChange, onSubmit, userId, saving }:
         </div>
       </fieldset>
 
-      {/* Зона фото — реальная загрузка + разбор через Claude */}
+      {/* Photo zone — real upload + analysis via Claude */}
       <fieldset className="px-[var(--gut)] pt-6">
         <legend className="field-label">
-          Фото <span className="hint">— необязательно</span>
+          Photo <span className="hint">— optional</span>
         </legend>
         <PhotoZone userId={userId} onSaved={() => onChange({ ...value, has_photo: true })} />
       </fieldset>
 
           <div className="build-submit px-[var(--gut)] pt-8 lg:hidden">
             <button type="button" className="btn full" onClick={onSubmit} disabled={saving}>
-              Собрать образы
+              Build outfits
             </button>
           </div>
         </div>

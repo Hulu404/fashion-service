@@ -83,7 +83,7 @@ export default function Overlay({ open, onClose, variant, eyebrow, title, childr
             {eyebrow && <span className="e">{eyebrow}</span>}
             {title}
           </div>
-          <button type="button" className="sheet-x" onClick={onClose} aria-label="Закрыть">
+          <button type="button" className="sheet-x" onClick={onClose} aria-label="Close">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
               <path d="M6 6l12 12M18 6L6 18" />
             </svg>

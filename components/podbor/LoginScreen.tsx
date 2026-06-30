@@ -27,7 +27,7 @@ export default function LoginScreen() {
       }
       // On success the parent's auth listener takes over and shows the form.
     } catch (err: any) {
-      setError(err?.message ?? 'Не удалось войти. Проверьте данные.')
+      setError(err?.message ?? 'Could not sign in. Check your details.')
     } finally {
       setBusy(false)
     }
@@ -37,10 +37,10 @@ export default function LoginScreen() {
     <main className="min-h-screen flex items-center justify-center px-6 py-12">
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
-          <div className="font-display text-3xl tracking-[0.14em] text-ink">ÉCLAT</div>
-          <p className="eyebrow mt-3">AI-стилист</p>
+          <div className="font-display text-3xl tracking-[0.14em] text-ink">SB-fashion</div>
+          <p className="eyebrow mt-3">AI stylist</p>
           <p className="mt-4 text-sm text-ink-soft font-light leading-relaxed">
-            Войдите по email и паролю, чтобы собрать образы под повод и сохранить свои параметры.
+            Sign in with your email and password to build outfits for any occasion and save your profile.
           </p>
         </div>
 
@@ -61,7 +61,7 @@ export default function LoginScreen() {
 
           <div>
             <label className="field-label mt-1" htmlFor="login-password">
-              Пароль
+              Password
             </label>
             <input
               id="login-password"
@@ -70,7 +70,7 @@ export default function LoginScreen() {
               minLength={6}
               autoComplete="current-password"
               className="field-input"
-              placeholder="Минимум 6 символов"
+              placeholder="At least 6 characters"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -79,12 +79,12 @@ export default function LoginScreen() {
           {error && <p className="text-sm text-oxblood font-light">{error}</p>}
 
           <button type="submit" className="btn full mt-2" disabled={busy}>
-            {busy ? 'Подождите…' : 'Войти'}
+            {busy ? 'Please wait…' : 'Sign in'}
           </button>
         </form>
 
         <p className="mt-5 text-center text-xs text-stone font-light leading-relaxed">
-          Нет аккаунта? Введите email и пароль — мы создадим его автоматически.
+          No account? Enter your email and password — we’ll create one automatically.
         </p>
       </div>
     </main>

@@ -15,16 +15,16 @@ function paletteShades(name: string | null): string[] {
 }
 
 /**
- * Sticky desktop-only "Ваш бриф" card. Mirrors the live form selection and
+ * Sticky desktop-only "Your brief" card. Mirrors the live form selection and
  * carries the submit button; hidden on mobile (the inline button stays there).
  */
 export default function Brief({ value, onSubmit, saving }: Props) {
   const rows: { label: string; content: ReactNode }[] = []
-  if (value.occasion) rows.push({ label: 'Повод', content: value.occasion })
-  if (value.styles.length) rows.push({ label: 'Стиль', content: value.styles.join(', ') })
+  if (value.occasion) rows.push({ label: 'Occasion', content: value.occasion })
+  if (value.styles.length) rows.push({ label: 'Style', content: value.styles.join(', ') })
   if (value.palette) {
     rows.push({
-      label: 'Палитра',
+      label: 'Palette',
       content: (
         <span className="brief-pal">
           <span className="brief-strip" aria-hidden="true">
@@ -37,14 +37,14 @@ export default function Brief({ value, onSubmit, saving }: Props) {
       ),
     })
   }
-  if (value.fit) rows.push({ label: 'Посадка', content: value.fit })
-  if (value.budget) rows.push({ label: 'Бюджет', content: value.budget })
-  if (value.has_photo) rows.push({ label: 'Фото', content: 'Добавлено' })
+  if (value.fit) rows.push({ label: 'Fit', content: value.fit })
+  if (value.budget) rows.push({ label: 'Budget', content: value.budget })
+  if (value.has_photo) rows.push({ label: 'Photo', content: 'Added' })
 
   return (
     <aside className="brief">
       <div className="brief-card">
-        <p className="eyebrow">Ваш бриф</p>
+        <p className="eyebrow">Your brief</p>
 
         {rows.length > 0 ? (
           <dl className="brief-list">
@@ -56,11 +56,11 @@ export default function Brief({ value, onSubmit, saving }: Props) {
             ))}
           </dl>
         ) : (
-          <p className="brief-empty">Отметьте параметры слева — они появятся здесь.</p>
+          <p className="brief-empty">Pick options on the left — they’ll show up here.</p>
         )}
 
         <button type="button" className="btn full" onClick={onSubmit} disabled={saving}>
-          Собрать образы
+          Build outfits
         </button>
       </div>
     </aside>

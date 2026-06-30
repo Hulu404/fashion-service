@@ -7,13 +7,13 @@ const jost = Jost({ subsets: ['latin'], weight: ['300','400','600','700'], varia
 const bodoni = Bodoni_Moda({ subsets: ['latin'], weight: ['400','600','700'], variable: '--font-bodoni' })
 
 export const metadata = {
-  title: 'ÉCLAT — Витрина',
-  description: 'Мобильный AI-стилист — витрина'
+  title: 'SB-fashion — Showcase',
+  description: 'Mobile AI stylist — showcase'
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="ru">
+    <html lang="en">
       <body className={`${jost.variable} ${bodoni.variable} text-ink`}>
         {/* App shell: sidebar (desktop) + tab bar (mobile) + stage. */}
         <div className="app">

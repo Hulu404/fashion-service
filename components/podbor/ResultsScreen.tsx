@@ -20,10 +20,10 @@ function summaryTags(p: BuildParams): string[] {
   const tags: string[] = []
   if (p.occasion) tags.push(p.occasion)
   p.styles.forEach((s) => tags.push(s))
-  if (p.palette) tags.push(`${p.palette} палитра`)
-  if (p.fit) tags.push(`${p.fit} силуэт`)
-  if (p.has_photo) tags.push('по фото')
-  if (tags.length === 0) tags.push('Универсальный подбор')
+  if (p.palette) tags.push(`${p.palette} palette`)
+  if (p.fit) tags.push(`${p.fit} silhouette`)
+  if (p.has_photo) tags.push('from photo')
+  if (tags.length === 0) tags.push('Versatile selection')
   return tags
 }
 
@@ -47,14 +47,14 @@ export default function ResultsScreen({
         <button
           type="button"
           onClick={onBack}
-          aria-label="Назад к параметрам"
+          aria-label="Back to options"
           className="w-9 h-9 rounded-full border border-[color:var(--hair)] bg-porcelain-2 grid place-items-center text-ink hover:bg-porcelain"
         >
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6">
             <path d="M15 5l-7 7 7 7" />
           </svg>
         </button>
-        <h1 className="font-display text-2xl text-ink">Ваши образы</h1>
+        <h1 className="font-display text-2xl text-ink">Your outfits</h1>
       </div>
 
       {/* Summary chips */}
@@ -68,7 +68,7 @@ export default function ResultsScreen({
 
       {usingSeed && (
         <p className="px-[var(--gut)] pt-1 pb-1 text-xs text-stone font-light">
-          Гардероб пуст — образы собраны из базовых вещей. Добавьте свои фото, чтобы подбор стал точнее.
+          Your wardrobe is empty — these outfits use basic pieces. Add your own photos to make results more precise.
         </p>
       )}
 
@@ -88,7 +88,7 @@ export default function ResultsScreen({
 
       <div className="more-wrap">
         <button type="button" className="btn full" style={{ background: 'var(--ink)' }} onClick={onRegen}>
-          Собрать ещё
+          Build more
         </button>
       </div>
     </div>

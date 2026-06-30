@@ -23,7 +23,7 @@ export default function ItemCard({ item, thumbUrl, onEdit, onDelete }: Props) {
       <div className="relative aspect-[4/5] bg-porcelain">
         {thumbUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={thumbUrl} alt={item.category ?? 'Вещь'} className="w-full h-full object-cover" />
+          <img src={thumbUrl} alt={item.category ?? 'Item'} className="w-full h-full object-cover" />
         ) : (
           <div
             className="w-full h-full grid place-items-center"
@@ -46,7 +46,7 @@ export default function ItemCard({ item, thumbUrl, onEdit, onDelete }: Props) {
 
       <div className="p-3 flex flex-col gap-2 grow">
         <div className="font-display text-base text-ink leading-tight">
-          {item.category || 'Без категории'}
+          {item.category || 'Uncategorised'}
         </div>
 
         {swatch.length > 0 && <ColorStory story={swatch} />}
@@ -67,14 +67,14 @@ export default function ItemCard({ item, thumbUrl, onEdit, onDelete }: Props) {
             className="text-xs text-ink border-b border-mocha pb-0.5 hover:text-oxblood hover:border-oxblood"
             onClick={() => onEdit(item)}
           >
-            Изменить
+            Edit
           </button>
           <button
             type="button"
             className="text-xs text-stone hover:text-oxblood"
             onClick={() => onDelete(item)}
           >
-            Удалить
+            Delete
           </button>
         </div>
       </div>

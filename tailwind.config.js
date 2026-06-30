@@ -17,7 +17,7 @@ module.exports = {
         'oxblood-deep': '#A12C5C'
       },
       boxShadow: {
-        eclat: '0 24px 60px -28px rgba(30,25,60,.5)'
+        sb: '0 24px 60px -28px rgba(30,25,60,.5)'
       },
       borderRadius: {
         e: '16px',

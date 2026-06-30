@@ -32,7 +32,7 @@ export default function LookCard({ look, index, saved, onToggleSave, onSimilar }
         ))}
 
         <div className="why">
-          <span className="eyebrow">Почему это работает</span>
+          <span className="eyebrow">Why it works</span>
           <p>{look.rationale}</p>
         </div>
 
@@ -41,10 +41,10 @@ export default function LookCard({ look, index, saved, onToggleSave, onSimilar }
             <svg className="heart" viewBox="0 0 24 24">
               <path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2.5A4 4 0 0 1 19 10c0 5.5-7 10-7 10z" />
             </svg>
-            <span className="lbl">{saved ? 'Сохранено' : 'Сохранить'}</span>
+            <span className="lbl">{saved ? 'Saved' : 'Save'}</span>
           </button>
           <button type="button" className="gbtn" onClick={onSimilar}>
-            Похожие
+            Similar
           </button>
         </div>
       </div>

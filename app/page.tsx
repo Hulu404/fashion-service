@@ -18,12 +18,12 @@ export default async function Page() {
       <Hero />
 
       <section className="mt-6 lg:mt-12">
-        <h3 className="text-sm text-stone font-semibold">Показы недели</h3>
+        <h3 className="text-sm text-stone font-semibold">Shows of the week</h3>
         {hasTrends ? (
           <TrendsSection trends={trends as any} />
         ) : (
           <p className="mt-3 text-sm text-ink-soft font-light leading-relaxed">
-            Подборка показов появится позже. А пока соберите свой образ.
+            The show selection will appear later. In the meantime, build your own look.
           </p>
         )}
       </section>
